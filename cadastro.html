@@ -1,0 +1,31 @@
+﻿<link rel="stylesheet" type="text/css" href="estilo.css">
+
+<script src="jquery.js"></script>
+<script src="funcoes.js"></script>
+
+<div class="barra-topo">
+	<div class="div-barra-esquerdo">Novo Cadastro</div>
+    <div class="div-barra-direto">X</div>
+</div>
+
+<div id="tela-padrao">
+  <table width="100%" border="0" cellspacing="5" cellpadding="0">
+      <tr>
+        <td height="31" align="left">
+        	
+            <input name="representacao" type="text" required id="representacao" placeholder="Representação">
+            <input name="nome" type="text" required id="nome" placeholder="Seu Nome">
+            <input name="telefone" type="text" required id="telefone" placeholder="Telefone">
+            <input name="email-firevendas" type="text" required id="email-firevendas" placeholder="Email do Firevendas">
+            <input name="senha-firevendas" type="password" required id="senha-firevendas" placeholder="Senha do Firevendas">
+        	
+            <div class="linha"></div>
+            
+            <input onClick="window.location='index.html'" type="button" class="bot-vermelho" value="Cancelar" style="width:150px; float:left">
+            <input onClick="gravarNovo()" type="button" class="bot-laranja" value="Gravar Cadastro" style="width:150px; float:right">
+        
+        </td>
+      </tr>
+  </table>
+  
+</div>
