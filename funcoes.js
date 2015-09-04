@@ -11,6 +11,23 @@ $(function() {
 	}
 });
 
+function autenticaUsuario(){
+	
+	if( $("#email").val() != '' && $("#senha").val() != '' ){
+		
+		if( $("#email").val() == localStorage.getItem('fv.email_firevendas') && $("#senha").val() == localStorage.getItem('fv.senha_firevendas') ){
+			localStorage.setItem('fv.logado', true );
+			window.location = 'agenda.html';
+		}else{
+			alert('Usuario não encontrado');	
+		}
+		
+	}else{
+		alert('Dados não informados.');	
+	}
+	
+}
+
 function gravarNovo(){
 	
 	if( $("#email-representacao").val() != '' && 

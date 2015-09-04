@@ -1,8 +1,11 @@
 ﻿<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="plugins/datatimepicker/bootstrap-datetimepicker.css">
 <link rel="stylesheet" type="text/css" href="estilo.css">
 
 <script src="jquery.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/datatimepicker/moment-with-locales.js"></script>
+<script src="plugins/datatimepicker/bootstrap-datetimepicker.js"></script>
 <script src="funcoes.js"></script>
 
 <nav class="navbar navbar-default navbar-static-side" role="navigation">
@@ -18,7 +21,7 @@
             </button>
             
             <img style="margin-top:3px" src="img/logoBranco.png" width="45" height="39" alt=""/>
-    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Login</span>
+    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Agenda</span>
             
         </div>
     
@@ -37,19 +40,21 @@
 <div class="panel panel-default">
   <div class="panel-body">
   	
-    <form role="form">
-      <div class="form-group">
-        <label for="email">Email Firevendas</label>
-        <input type="email" class="form-control" id="email" name="email">
-      </div>
-      <div class="form-group">
-        <label for="senha">Senha</label>
-        <input type="password" class="form-control" id="senha" name="senha">
-      </div>
-      
-      <button onClick="autenticaUsuario()" type="button" class="bot-laranja">Acesso ao Sistema</button>
-    </form>
-
+	<div class="form-group">
+        <div class="row">
+            <div class="col-md-8">
+                <div id="datetimepicker12"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker12').datetimepicker({
+                inline: true,
+                sideBySide: true
+            });
+        });
+    </script>
 
   </div>
 </div>
