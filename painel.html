@@ -21,7 +21,7 @@
             </button>
             
             <img style="margin-top:3px; margin-left:18px" src="img/logoBranco.png" width="45" height="39" alt=""/>
-    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Agenda</span>
+    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Painel</span>
             
         </div>
     
@@ -31,8 +31,8 @@
     			
                 <li class="landing_link"><a href="#"></a></li>
                 <li class="landing_link"><a href="#"></a></li>
-                <li class="landing_link "><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
-				<li class="landing_link active"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
+                <li class="landing_link active"><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
@@ -52,35 +52,32 @@
 </nav>
 
 <div class="panel panel-default">
-  <div class="panel-body">
+	<div class="panel-body">
     
-    <input onClick="verDia()" type="button" class="bot-laranja" value="Ver Compromissos do Dia" style="width:100%">
-    
-	<div class="form-group">
-        <div class="row">
-            <div class="col-md-8">
-                <input type="hidden" id="calendario" class="form-control" name="date">
-            </div>
-        </div>
-    </div>
-    <script type="text/javascript">
+    	<button style="display:none" id="tela-dados-acesso" type="button" class="btn btn-sucess" onClick="gravarDadosAcesso()"> Deseja gravar seus dados de Acesso?</button>
+    	<button style="display:none" id="tela-dados-acesso2" type="button" class="btn btn-danger" onClick="apagarDadosAcesso()"> Deseja apagar seus dados de Acesso?</button>
         
-		$(function () {
-			
-            $('#calendario').datetimepicker({
-                inline: true,
-                sideBySide: false,
-				format: "DD/MM/YYYY"
-            });
-			
+        <script>
+        $(function () {
+           
+		    if( localStorage.getItem('fv.email_dados_acesso') == '' )
+				$('#tela-dados-acesso').show();
+			else
+				$('#tela-dados-acesso2').show();
         });
 		
-		function verDia(){
-			localStorage.setItem( 'fv.data_selecionada', $('#calendario').val() );
-			window.location = 'verDia.html';
+		function gravarDadosAcesso(){
+			localStorage.setItem('fv.email_dados_acesso', localStorage.getItem('fv.email_firevendas'));
+			localStorage.setItem('fv.senha_dados_acesso', localStorage.getItem('fv.senha_firevendas'));
+			$('#tela-dados-acesso').hide();
 		}
-				
-    </script>
-
+		
+		function apagarDadosAcesso(){
+			localStorage.setItem('fv.email_dados_acesso', '');
+			localStorage.setItem('fv.senha_dados_acesso', '');
+			$('#tela-dados-acesso2').hide();
+		}
+		
+        </script>
   </div>
 </div>

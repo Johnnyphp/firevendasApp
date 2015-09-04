@@ -1,38 +1,3 @@
-/*! version : 4.15.35
- =========================================================
- bootstrap-datetimejs
- https://github.com/Eonasdan/bootstrap-datetimepicker
- Copyright (c) 2015 Jonathan Peterson
- =========================================================
- */
-/*
- The MIT License (MIT)
-
- Copyright (c) 2015 Jonathan Peterson
-
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
- */
-/*global define:false */
-/*global exports:false */
-/*global require:false */
-/*global jQuery:false */
-/*global moment:false */
 (function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
@@ -2096,7 +2061,7 @@
             if (typeof datepickerInput !== 'string') {
                 throw new TypeError('datepickerInput() expects a string parameter');
             }
-
+			
             options.datepickerInput = datepickerInput;
             return picker;
         };
@@ -2109,7 +2074,7 @@
             if (typeof parseInputDate !== 'function') {
                 throw new TypeError('parseInputDate() sholud be as function');
             }
-
+			
             options.parseInputDate = parseInputDate;
 
             return picker;
@@ -2175,6 +2140,7 @@
                     }
                     tries++;
                 }
+				
                 setValue(date);
             }
             update();
@@ -2213,6 +2179,8 @@
                     }
                     tries++;
                 }
+				
+				
                 setValue(date);
             }
             update();
@@ -2229,6 +2197,7 @@
             ///<param name="newDate" locid="$.fn.datetimepicker.date_p:newDate">Takes string, viewDate, moment, null parameter.</param>
             ///</signature>
             if (arguments.length === 0) {
+				
                 return viewDate.clone();
             }
 
@@ -2243,6 +2212,7 @@
 
             viewDate = parseInputDate(newDate);
             viewUpdate();
+			
             return picker;
         };
 
@@ -2291,6 +2261,7 @@
         if (options.inline) {
             show();
         }
+		
         return picker;
     };
 

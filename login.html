@@ -50,6 +50,11 @@
       <button onClick="autenticaUsuario()" type="button" class="bot-laranja">Acesso ao Sistema</button>
     </form>
 
-
+	<script>
+        $(function () {
+        	$('#email').val( localStorage.getItem('fv.email_dados_acesso') );
+			$('#senha').val( localStorage.getItem('fv.senha_dados_acesso') );
+        });
+	</script>
   </div>
 </div>

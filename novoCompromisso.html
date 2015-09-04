@@ -21,7 +21,7 @@
             </button>
             
             <img style="margin-top:3px; margin-left:18px" src="img/logoBranco.png" width="45" height="39" alt=""/>
-    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Agenda</span>
+    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Novo Compromisso</span>
             
         </div>
     
@@ -52,33 +52,95 @@
 </nav>
 
 <div class="panel panel-default">
-  <div class="panel-body">
-    
-    <input onClick="verDia()" type="button" class="bot-laranja" value="Ver Compromissos do Dia" style="width:100%">
-    
+	
+    <div class="panel-body">
+	
+    <input onClick="window.location='agenda.html'" type="button" class="bot-laranja" value="Voltar Calendário" style="width:100%">
+	<p style="margin-top:2px">
+    <input onClick="window.location='verDia.html'" id="btn-compromissos" type="button" class="bot-laranja" value="" style="width:100%">
+
 	<div class="form-group">
         <div class="row">
             <div class="col-md-8">
-                <input type="hidden" id="calendario" class="form-control" name="date">
+            	
+                <span style="font-weight:bold; font-size:16px; color:#000" id="data-selecionada"></span>
+            	
+                <div class="form-group">
+                    <input class="form-control" name="titulo" type="text" required id="titulo" placeholder="Titulo do Compromisso">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="data" type="text" required id="data" placeholder="Data do Compromisso">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="hora" type="text" required id="hora" placeholder="Hora do Compromisso">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="cliente" type="text" required id="cliente" placeholder="Cliente">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="descricao" type="text" required id="descricao" placeholder="Descrição do Compromisso">
+                </div>
+            	
+                <div class="linha"></div>
+            
+                <div class="form-group">
+                    <input onClick="window.location='verDia.html'" type="button" class="bot-vermelho" value="Cancelar" style="width:140px; float:left">
+                    <input onClick="gravarNovoCompromisso()" type="button" class="bot-laranja" value="Gravar Compromisso" style="width:170px; float:right">
+                </div>
+                
             </div>
         </div>
     </div>
+	
     <script type="text/javascript">
         
 		$(function () {
 			
-            $('#calendario').datetimepicker({
-                inline: true,
+            $('#data').datetimepicker({
+                inline: false,
                 sideBySide: false,
 				format: "DD/MM/YYYY"
             });
 			
         });
+			
+        $('#btn-compromissos').val( 'Compromissos do Dia ' + localStorage.getItem('fv.data_selecionada') );
+		$('#data').val( localStorage.getItem('fv.data_selecionada') );
+			
+		var operacao = "A";
+		var indice_selecionado = -1;
+		var tbCompromissos = localStorage.getItem("tbCompromissos");
+			
+		tbCompromissos = JSON.parse( tbCompromissos );
+			
+		if(tbCompromissos == null)
+			tbCompromissos = [];
+			
+		console.log( tbCompromissos )
 		
-		function verDia(){
-			localStorage.setItem( 'fv.data_selecionada', $('#calendario').val() );
-			window.location = 'verDia.html';
+		function gravarNovoCompromisso(){ 
+		
+			var compromisso = JSON.stringify({ 
+					titulo : $("#titulo").val(), 
+					data : $("#data").val(), 
+					hora : $("#hora").val(), 
+					cliente : $("#cliente").val(),
+					descricao : $("#descricao").val()
+				}); 
+				
+			tbCompromissos.push( compromisso ); 
+				
+			localStorage.setItem("tbCompromissos", JSON.stringify( tbCompromissos )); 
+			alert("Compromisso adicionado com Sucesso"); 
+			window.location='verDia.html';
+			return true; 
 		}
+
+
 				
     </script>
 

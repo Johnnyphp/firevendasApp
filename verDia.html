@@ -21,7 +21,7 @@
             </button>
             
             <img style="margin-top:3px; margin-left:18px" src="img/logoBranco.png" width="45" height="39" alt=""/>
-    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Agenda</span>
+    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Compromissos</span>
             
         </div>
     
@@ -52,32 +52,83 @@
 </nav>
 
 <div class="panel panel-default">
-  <div class="panel-body">
-    
-    <input onClick="verDia()" type="button" class="bot-laranja" value="Ver Compromissos do Dia" style="width:100%">
-    
-	<div class="form-group">
-        <div class="row">
-            <div class="col-md-8">
-                <input type="hidden" id="calendario" class="form-control" name="date">
-            </div>
-        </div>
-    </div>
+	
+    <div class="panel-body">
+
+	<input onClick="window.location='agenda.html'" type="button" class="bot-laranja" value="Voltar Calendário" style="width:100%">
+	<p style="margin-top:2px">
+    <input onClick="novoCompromisso()" type="button" class="bot-laranja" value="Novo Compromisso" style="width:100%">
+
+	<div id="data-selecionada" style="font-weight:bold"></div>
+    <div id="tbCompromissos"></div>
+	
     <script type="text/javascript">
         
 		$(function () {
 			
-            $('#calendario').datetimepicker({
-                inline: true,
-                sideBySide: false,
-				format: "DD/MM/YYYY"
-            });
-			
+            $('#data-selecionada').html( 'Data Selecionada: ' + localStorage.getItem('fv.data_selecionada') );
+			Listar();
         });
 		
-		function verDia(){
-			localStorage.setItem( 'fv.data_selecionada', $('#calendario').val() );
-			window.location = 'verDia.html';
+		var operacao = "A";
+		var indice_selecionado = -1;
+		var tbCompromissos = localStorage.getItem("tbCompromissos");
+			
+		tbCompromissos = JSON.parse( tbCompromissos );
+			
+		if(tbCompromissos == null)
+			tbCompromissos = [];
+			
+		console.log( tbCompromissos )
+		
+		function Listar(){
+			
+			$("#tbCompromissos").html("");
+			
+			var strHtml = '<div class="list-group">';
+			strHtml += '<a href="#" class="list-group-item active">';
+			strHtml += '<h5 class="list-group-item-heading">Titulo / Data / Hora / Cliente / Descrição</h5>';
+			strHtml += "</a>";
+
+			for(var i in tbCompromissos){
+				
+				var comp = JSON.parse( tbCompromissos[i] );
+
+				if( localStorage.getItem('fv.data_selecionada') == comp.data ){
+					
+					strHtml += '<a href="#" class="list-group-item">';
+						strHtml += '<p class="list-group-item-text">';
+							strHtml += "<img src='img/icon_delete_mini.gif' alt='"+i+"' class='btnExcluir' onclick='excluirRegistro("+i+")'/>";
+						strHtml += "</p>";
+					
+						strHtml += '<p class="list-group-item-text">';
+							strHtml += '<br>'+comp.titulo;
+							strHtml += '<br>'+comp.data;
+							strHtml += '<br>'+comp.hora;
+							strHtml += '<br>'+comp.cliente;
+							strHtml += '<br>'+comp.descricao;
+						strHtml += "</p>";
+					strHtml += "</a>";
+				
+				}
+			}
+			
+			strHtml += "</div>";
+			$("#tbCompromissos").html( strHtml );
+		}
+		
+		function excluirRegistro( indice_selecionado ){
+			 
+			tbCompromissos.splice(indice_selecionado, 1);
+    		localStorage.setItem("tbCompromissos", JSON.stringify( tbCompromissos ));
+    		alert("Registro excluído.");
+			Listar(); 
+			
+		}
+
+
+		function novoCompromisso(){
+			window.location = 'novoCompromisso.html';
 		}
 				
     </script>
