@@ -97,11 +97,11 @@
 					//if( localStorage.getItem('fv.data_selecionada') == comp.data ){
 
 						strHtml += '<a href="#" class="list-group-item">';
-							strHtml += '<p class="list-group-item-text">';
-								strHtml += "<img src='img/icon_delete_mini.gif' alt='"+i+"' class='btnExcluir' onclick='excluirRegistro("+i+")'/><img src='img/icon_editar.png' alt='"+i+"' class='btnEditar' onclick='abrirEdicao("+i+")'/><b>"+comp.razao_social+"</b>";
-							strHtml += "</p>";
+							strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-danger glyphicon glyphicon-remove' onclick='excluirRegistro("+i+")'/>";
+							strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-success glyphicon glyphicon-edit' onclick='abrirEdicao("+i+")'/>";
 
-						strHtml += '<p class="list-group-item-text">';
+							strHtml += '<p class="list-group-item-text">';
+								strHtml += "<br><b>"+comp.razao_social+"</b>";
 								strHtml += '<br>'+comp.cnpj;
 								strHtml += '<br>'+comp.estado+' / '+comp.cidade;
 								strHtml += '<br>'+comp.email;
@@ -138,11 +138,11 @@
 					if( partes[1] != undefined ){
 
 						strHtml += '<a href="#" class="list-group-item">';
-							strHtml += '<p class="list-group-item-text">';
-								strHtml += "<img src='img/icon_delete_mini.gif' alt='"+i+"' class='btnExcluir' onclick='excluirRegistro("+i+")'/><img src='img/icon_editar.png' alt='"+i+"' class='btnEditar' onclick='abrirEdicao("+i+")'/><b>"+comp.razao_social+"</b>";
-							strHtml += "</p>";
+							strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-danger glyphicon glyphicon-remove' onclick='excluirRegistro("+i+")'/>";
+							strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-success glyphicon glyphicon-edit' onclick='abrirEdicao("+i+")'/>";
 
-						strHtml += '<p class="list-group-item-text">';
+							strHtml += '<p class="list-group-item-text">';
+								strHtml += "<br><b>"+comp.razao_social+"</b>";
 								strHtml += '<br>'+comp.cnpj;
 								strHtml += '<br>'+comp.estado+' / '+comp.cidade;
 								strHtml += '<br>'+comp.email;

@@ -165,21 +165,21 @@
             </div>
         </div>
     </div>
-	
+
     <script type="text/javascript">
-        
+
 		$(function () {
-			
+
 			$('#cnpj').mask('99.999.999/9999-99');
 			$('#telefone_fixo').mask('(99)99999-9999');
 			$('#telefone_celular').mask('(99)99999-9999');
-			
+
             $('#data').datetimepicker({
                 inline: false,
                 sideBySide: false,
 				format: "DD/MM/YYYY"
             });
-			
+
         });
 
 		var operacao = "A";
@@ -210,8 +210,7 @@
                     cep             : $("#cep").val(),
                     estado          : $("#estado").val(),
                     cidade          : $("#cidade").val(),
-                    obs             : $("#obs").val(),
-                    data_cad        : $("#data_cad").val()
+                    obs             : $("#obs").val()
 				});
 
 			tbClientes.push( cliente );
@@ -223,13 +222,12 @@
 		}
 
 		var siglaEstado = '';
-		
+
 		function mostraCidades( siglaEstado ){
-			
+
 			var strRetornoCidades = '';
-			
 			var listaCidades = JSON.parse( localStorage.getItem('fv.lista_cidades') );
-			
+
 			for(var i in listaCidades){
 				
 				for(var ii in listaCidades.estados){

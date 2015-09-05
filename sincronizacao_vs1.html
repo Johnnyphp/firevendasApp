@@ -1,0 +1,122 @@
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="plugins/datatimepicker/bootstrap-datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="estilo.css">
+
+<script src="jquery.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/datatimepicker/moment-with-locales.js"></script>
+<script src="plugins/datatimepicker/bootstrap-datetimepicker.js"></script>
+<script src="funcoes.js"></script>
+
+<nav class="navbar navbar-default navbar-static-side" role="navigation">
+  
+    <div class="container-fluid">
+
+        <div class="navbar-header navbar-fixed-top">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Navegação</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <img style="margin-top:3px; margin-left:18px" src="img/logoBranco.png" width="45" height="39" alt=""/>
+        <span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Sincronização</span>
+            
+        </div>
+    
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            
+            <ul class="nav navbar-nav">
+          
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link active"><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
+                <li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
+                <li class="landing_link"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
+                <li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
+                <li class="landing_link"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
+                <li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
+                <li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
+                <li class="landing_link"><a class="glyphicon glyphicon-cog" href="configuracoes.html"> CONFIGURAÇÃO</a></li>
+
+                <li role="separator" class="divider" style="color:#FFFFFF; text-align:center">__________________________________________</li>
+
+                <li class="landing_link"><a href="index.html">Voltar ao Inicio <span class="sr-only">(current)</span></a></li>
+                <li class="landing_link"><a target="_blank" href="http://www.firevendas.com.br">Site Firevendas <span class="sr-only">(current)</span></a></li>
+              <li class="active"><a href="#">Suporte (37) 3287 0022</a></li>
+
+            </ul>
+        </div>
+  </div>
+</nav>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+
+      <div style="display:none" id="msg-off" class="alert alert-danger" role="alert">! Você não está OnLine, não será possível sincronizar os dados</div>
+      <div style="display:none" id="msg-on" class="alert alert-success" role="alert">! Você está OnLine</div>
+
+      <button style="display:none" id="tela-dados-acesso" type="button" class="btn btn-sucess" onClick="gravarDadosAcesso()"> Deseja gravar seus dados de Acesso?</button>
+      <button style="display:none" id="tela-dados-acesso2" type="button" class="btn btn-danger" onClick="apagarDadosAcesso()"> Deseja apagar seus dados de Acesso?</button>
+  </div>
+  <div class="panel-body">
+      <button style="width:100%" type="button" class="btn btn-success">Sinc Marcas</button>
+      <div class='row'></div>
+      <button style="width:100%" type="button" class="btn btn-success">Sinc Grades</button>
+      <div class='row'></div>
+      <button style="width:100%" type="button" class="btn btn-success">Sinc Condições de Pagto</button>
+      <div class='row'></div>
+      <button style="width:100%" type="button" class="btn btn-success">Sinc Produtos</button>
+      <div class='row'></div>
+      <button style="width:100%" type="button" class="btn btn-success">Sinc Cores</button>
+      <div class='row'></div>
+      <button onClick='sincClientes()' style="width:100%" type="button" class="btn btn-success">Sinc Clientes</button>
+      <div class='row'></div>
+      <button style="width:100%" type="button" class="btn btn-success">Sinc Pedidos</button>
+  </div>
+</div>
+
+<script>
+
+  $(function () {
+
+    //Testa se o dispositivo esta online
+    $.ajax({
+      url: "http://www.firevendas.com.br/app/testeOnline.php",
+      success: function(retorno){
+
+        if( retorno == 'ON'){
+          //alert('Você esta online');
+          $('#msg-on').show();
+          $('#painel-sinc').show();
+        }else{
+          //alert('OFFLine');
+          $('#msg-off').show();
+        }
+
+      },
+      error: function(retorno){
+        //alert('OFFLine');
+        $('#msg-off').show();
+      }
+
+    });
+
+  });
+
+  function sincClientes(){
+
+    $.ajax({
+      url: "http://www.firevendas.com.br/app/sincClientes.php",
+      data: "email_firevendas="+localStorage.getItem('fv.email_firevendas')+"&senha_firevendas="+localStorage.getItem('fv.senha_firevendas')+"&empresa_firevendas="+localStorage.getItem('fv.empresa'),
+      success: function(retorno){
+        alert(retorno);
+      },
+      error: function(retorno){
+          alert('Um erro inesperado aconteceu durante a Sincronização');
+      }
+    });
+  }
+
+</script>

@@ -52,12 +52,42 @@
 </nav>
 
 <div class="panel panel-default">
-  <div class="panel-body">
+  <div class="panel-heading">
+
+      <div style="display:none" id="msg-off" class="alert alert-danger" role="alert">! Você não está OnLine, não será possível sincronizar os dados</div>
+      <div style="display:none" id="msg-on" class="alert alert-success" role="alert">! Você está OnLine</div>
 
       <button style="display:none" id="tela-dados-acesso" type="button" class="btn btn-sucess" onClick="gravarDadosAcesso()"> Deseja gravar seus dados de Acesso?</button>
       <button style="display:none" id="tela-dados-acesso2" type="button" class="btn btn-danger" onClick="apagarDadosAcesso()"> Deseja apagar seus dados de Acesso?</button>
-
   </div>
+  <div class="panel-body">
+      <button style="width:100%" type="button" class="btn btn-success">Sinc Marcas</button>
+      <div class='row'></div>
+      <button style="width:100%" type="button" class="btn btn-success">Sinc Grades</button>
+      <div class='row'></div>
+      <button style="width:100%" type="button" class="btn btn-success">Sinc Condições de Pagto</button>
+      <div class='row'></div>
+      <button style="width:100%" type="button" class="btn btn-success">Sinc Produtos</button>
+      <div class='row'></div>
+      <button style="width:100%" type="button" class="btn btn-success">Sinc Cores</button>
+      <div class='row'></div>
+      <button onClick='sincClientes()' style="width:100%" type="button" class="btn btn-success">Sinc Clientes</button>
+      <div class='row'></div>
+      <button style="width:100%" type="button" class="btn btn-success">Sinc Pedidos</button>
+  </div>
+</div>
+
+<div id="loading" class="modal fade">
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div><img src="img/loading.gif" /></div>
+				<div>Aguarde, porcessando sua solicitação...</div>
+			</div>
+		</div>
+	</div>
+
 </div>
 
 <script>
@@ -68,18 +98,154 @@
     $.ajax({
       url: "http://www.firevendas.com.br/app/testeOnline.php",
       success: function(retorno){
+
         if( retorno == 'ON'){
-          alert('Você esta online');
+          //alert('Você esta online');
+          $('#msg-on').show();
+          $('#painel-sinc').show();
         }else{
-          alert('OFFLine');
+          //alert('OFFLine');
+          $('#msg-off').show();
         }
+
       },
       error: function(retorno){
-        alert('OFFLine');
+        //alert('OFFLine');
+        $('#msg-off').show();
       }
 
     });
 
   });
+
+function sincClientes(){
+
+	$('#loading').modal('show');
+
+  	//Prepara Clientes para enviar para o Servidor
+  	var operacao = "A";
+	var indice_selecionado = -1;
+	var tbClientes = localStorage.getItem("tbClientes");
+
+	tbClientes = JSON.parse( tbClientes );
+
+	if(tbClientes == null)
+		tbClientes = [];
+
+	console.log( tbClientes );
+
+	var strEnvia = '';
+
+	for(var i in tbClientes){
+
+		var cli = JSON.parse( tbClientes[i] );
+
+		cli_razao_social 	= cli.razao_social.replace('&', 'E');
+		cli_nome_fantasia 	= cli.nome_fantasia.replace('&', 'E');
+		cli_nome_contato  	= cli.nome_contato.replace('&', 'E');
+		cli_cnpj 			= cli.cnpj.replace('&', 'E');
+		cli_ie 				= cli.ie.replace('&', 'E');
+		cli_telefone_fixo 	= cli.telefone_fixo.replace('&', 'E');
+		cli_telefone_celular= cli.telefone_celular.replace('&', 'E');
+		cli_email 			= cli.email.replace('&', 'E');
+		cli_endereco 		= cli.endereco.replace('&', 'E');
+		cli_numero 			= cli.numero.replace('&', 'E');
+		cli_bairro 			= cli.bairro.replace('&', 'E');
+		cli_cep 			= cli.cep.replace('&', 'E');
+		cli_estado 			= cli.estado.replace('&', 'E');
+		cli_cidade 			= cli.cidade.replace('&', 'E');
+		cli_obs 			= cli.obs.replace('&', 'E');
+
+		strEnvia += cli_razao_social+'|';
+		strEnvia += cli_nome_fantasia+'|';
+		strEnvia += cli_nome_contato+'|';
+		strEnvia += cli_cnpj+'|';
+		strEnvia += cli_ie+'|';
+		strEnvia += cli_telefone_fixo+'|';
+		strEnvia += cli_telefone_celular+'|';
+		strEnvia += cli_email+'|';
+		strEnvia += cli_endereco+'|';
+		strEnvia += cli_numero+'|';
+		strEnvia += cli_bairro+'|';
+		strEnvia += cli_cep+'|';
+		strEnvia += cli_estado+'|';
+		strEnvia += cli_cidade+'|';
+		strEnvia += cli_obs+'|';
+		strEnvia += '§';
+	}
+
+	//alert('CONF:' + strEnvia);
+
+    $.ajax({
+    	type: "POST",
+		url: "http://www.firevendas.com.br/app/sincClientes.php",
+      	data: "email_firevendas="+localStorage.getItem('fv.email_firevendas')+"&senha_firevendas="+localStorage.getItem('fv.senha_firevendas')+"&empresa_firevendas="+localStorage.getItem('fv.empresa')+"&strEnvia="+strEnvia,
+      	success: function(retorno){
+
+        	//alert('RET SEVER: '+retorno);
+
+      		var p = retorno.split('[PARTE2]');
+      		//alert('P1: '+p[1]);
+
+        	//Zera o Cadastro e Atualiza com os Dados do Servidor
+        	if( p[1] != ''){
+
+        		tbClientes.length = 0;
+
+        		if( tbClientes == null )
+					tbClientes = [];
+
+				localStorage.setItem("tbClientes", '');
+        		localStorage.setItem("tbClientes", JSON.stringify( tbClientes ));
+
+        		alert( tbClientes )
+
+        		var p2 = p[1].split('§');
+        		//alert('P2: '+p2[0]);
+
+        		for(var i in p2){
+
+        			var p3 = p2[i].split('|');
+        			//alert('P3: '+p3[0]);
+
+        			if( p3[3] != undefined && p3[3] != '' ){
+
+        				alert('RETORNO RAZAO: '+p3[0]);
+
+        				var cliente = JSON.stringify({
+							razao_social    : p3[0],
+							nome_fantasia   : p3[1],
+							nome_contato    : p3[2],
+							cnpj            : p3[3],
+							ie              : p3[4],
+		                    telefone_fixo   : p3[5],
+		                    telefone_celular: p3[6],
+		                    email           : p3[7],
+		                    endereco        : p3[8],
+		                    numero          : p3[9],
+		                    bairro          : p3[10],
+		                    cep             : p3[11],
+		                    estado          : p3[12],
+		                    cidade          : p3[13],
+		                    obs             : p3[14]
+						});
+
+						tbClientes.push( cliente );
+        			}
+
+				}
+				localStorage.setItem("tbClientes", JSON.stringify( tbClientes ));
+    		}
+
+
+        	alert('Clientes sincronizados');
+        	$('#loading').modal('hide');
+      	},
+      	error: function(retorno){
+          alert('Um erro inesperado aconteceu durante a Sincronização');
+      	}
+    });
+
+  }
 
 </script>
