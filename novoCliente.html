@@ -1,0 +1,259 @@
+﻿<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="plugins/datatimepicker/bootstrap-datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="estilo.css">
+
+<script src="jquery.js"></script>
+<script src="plugins/mascara/jquery.mask.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/datatimepicker/moment-with-locales.js"></script>
+<script src="plugins/datatimepicker/bootstrap-datetimepicker.js"></script>
+<script src="funcoes.js"></script>
+
+<nav class="navbar navbar-default navbar-static-side" role="navigation">
+	
+    <div class="container-fluid">
+
+        <div class="navbar-header navbar-fixed-top">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Navegação</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <img style="margin-top:3px; margin-left:18px" src="img/logoBranco.png" width="45" height="39" alt=""/>
+    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Novo Cliente</span>
+            
+        </div>
+    
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            
+            <ul class="nav navbar-nav">
+    			
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link "><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
+				<li class="landing_link active"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-cog" href="configuracoes.html"> CONFIGURAÇÃO</a></li>
+
+                <li role="separator" class="divider" style="color:#FFFFFF; text-align:center">__________________________________________</li>
+                
+                <li class="landing_link"><a href="index.html">Voltar ao Inicio <span class="sr-only">(current)</span></a></li>
+                <li class="landing_link"><a target="_blank" href="http://www.firevendas.com.br">Site Firevendas <span class="sr-only">(current)</span></a></li>
+            	<li class="active"><a href="#">Suporte (37) 3287 0022</a></li>
+                
+            </ul>
+        </div>
+	</div>
+</nav>
+
+<div class="panel panel-default">
+	
+    <div class="panel-body">
+	
+    <input onClick="window.location='clientes.html'" type="button" class="bot-laranja" value="Lista de Clientes" style="width:100%">
+	<p style="margin-top:2px">
+
+	<div class="form-group">
+        <div class="row">
+            <div class="col-md-8">
+            	
+                <span style="font-weight:bold; font-size:16px; color:#000" id="data-selecionada"></span>
+            	
+                <div class="form-group">
+                    <input class="form-control" name="razao_social" type="text" required id="razao_social" placeholder="Razão Social">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="nome_fantasia" type="text" required id="nome_fantasia" placeholder="Nome Fantasia">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="nome_contato" type="text" required id="nome_contato" placeholder="Nome Contato">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="cnpj" type="text" required id="cnpj" placeholder="CNPJ">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="ie" type="text" required id="ie" placeholder="Inscrição Estadual">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="telefone_fixo" type="text" required id="telefone_fixo" placeholder="Telefone Fixo">
+                </div>
+            	
+                <div class="form-group">
+                    <input class="form-control" name="telefone_celular" type="text" required id="telefone_celular" placeholder="Telefone Celular">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="email" type="text" required id="email" placeholder="Email">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="endereco" type="text" required id="endereco" placeholder="Endereço">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="numero" type="text" required id="numero" placeholder="Numero">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="bairro" type="text" required id="bairro" placeholder="Bairro">
+                </div>
+                
+                <div class="form-group">
+                    <input class="form-control" name="cep" type="text" required id="cep" placeholder="CEP">
+                </div>
+                
+                <div class="form-group">
+
+					<select class="form-control" onchange="mostraCidades( this.value )" name="estado" id="estado">
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapa</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceara</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espirito Santo</option>
+                        <option value="GO">Goias</option>
+                        <option value="MA">Maranhao</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Para</option>
+                        <option value="PB">Paraiba</option>
+                        <option value="PR">Parana</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piaui</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondonia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">Sao Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+              		</select>
+                </div>
+                
+                <div class="form-group">
+                    <select class="form-control" name="cidade" id="cidade">
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <textarea class="form-control" name="obs" type="text" required id="obs" placeholder="Observações"></textarea>
+                </div>
+                
+                <div class="linha"></div>
+            
+                <div class="form-group">
+                    <input onClick="window.location='verDia.html'" type="button" class="bot-vermelho" value="Cancelar" style="width:140px; float:left">
+                    <input onClick="gravarNovoCliente()" type="button" class="bot-laranja" value="Gravar Cliente" style="width:160px; float:right">
+                </div>
+                
+            </div>
+        </div>
+    </div>
+	
+    <script type="text/javascript">
+        
+		$(function () {
+			
+			$('#cnpj').mask('99.999.999/9999-99');
+			$('#telefone_fixo').mask('(99)99999-9999');
+			$('#telefone_celular').mask('(99)99999-9999');
+			
+            $('#data').datetimepicker({
+                inline: false,
+                sideBySide: false,
+				format: "DD/MM/YYYY"
+            });
+			
+        });
+
+		var operacao = "A";
+		var indice_selecionado = -1;
+		var tbClientes = localStorage.getItem("tbClientes");
+
+		tbClientes = JSON.parse( tbClientes );
+
+		if(tbClientes == null)
+			tbClientes = [];
+
+		console.log( tbClientes )
+
+		function gravarNovoCliente(){
+
+			var cliente = JSON.stringify({
+					razao_social    : $("#razao_social").val(),
+					nome_fantasia   : $("#nome_fantasia").val(),
+					nome_contato    : $("#nome_contato").val(),
+					cnpj            : $("#cnpj").val(),
+					ie              : $("#ie").val(),
+                    telefone_fixo   : $("#telefone_fixo").val(),
+                    telefone_celular: $("#telefone_celular").val(),
+                    email           : $("#email").val(),
+                    endereco        : $("#endereco").val(),
+                    numero          : $("#numero").val(),
+                    bairro          : $("#bairro").val(),
+                    cep             : $("#cep").val(),
+                    estado          : $("#estado").val(),
+                    cidade          : $("#cidade").val(),
+                    obs             : $("#obs").val(),
+                    data_cad        : $("#data_cad").val()
+				});
+
+			tbClientes.push( cliente );
+
+			localStorage.setItem("tbClientes", JSON.stringify( tbClientes ));
+			alert("Cliente adicionado com Sucesso");
+			window.location='clientes.html';
+			return true;
+		}
+
+		var siglaEstado = '';
+		
+		function mostraCidades( siglaEstado ){
+			
+			var strRetornoCidades = '';
+			
+			var listaCidades = JSON.parse( localStorage.getItem('fv.lista_cidades') );
+			
+			for(var i in listaCidades){
+				
+				for(var ii in listaCidades.estados){
+					
+					if( listaCidades.estados[ii].sigla == siglaEstado  ){
+						
+						listaCidades.estados[ii].cidades.sort();
+						
+						for(var iii in listaCidades.estados[ii].cidades){
+							
+							console.log( listaCidades.estados[ii].cidades[iii] );
+							strRetornoCidades += '<option value="'+listaCidades.estados[ii].cidades[iii]+'">'+listaCidades.estados[ii].cidades[iii]+'</option>';
+						
+						}
+					}
+				}
+			}
+			
+			$('#cidade').html( strRetornoCidades );
+			
+		}
+
+				
+    </script>
+
+  </div>
+</div>
