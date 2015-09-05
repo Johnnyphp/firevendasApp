@@ -66,8 +66,6 @@
 
     //Testa se o dispositivo esta online
     $.ajax({
-
-      type: "POST",
       url: "http://www.firevendas.com.br/app/testeOnline.php",
       success: function(retorno){
         if( retorno == 'ON'){
@@ -75,6 +73,9 @@
         }else{
           alert('OFFLine');
         }
+      },
+      error: function(retorno){
+        alert('OFFLine');
       }
 
     });
