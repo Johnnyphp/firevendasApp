@@ -53,3 +53,38 @@ function gravarNovo(){
 		alert('É necessário o preenchimento de todos os dados');	
 	}
 }
+
+var idGrade;
+function nomeGrade( idGrade ){
+	
+	console.log( idGrade )
+	var strRetorno = '';
+    var tbGrades = JSON.parse( localStorage.getItem('tbGrades') );
+
+    console.log( tbGrades );
+
+    for(var i in tbGrades){
+    	var ret = JSON.parse( tbGrades[i] );
+    	if( ret.cod == idGrade )
+    		strRetorno = ret.descricao;
+    }
+     return strRetorno;
+
+}
+
+var idMarca;
+function nomeMarca( idMarca ){
+	
+	var strRetorno = '';
+    var tbMarcas = JSON.parse( localStorage.getItem('tbMarcas') );
+
+    console.log( tbMarcas );
+
+    for(var i in tbMarcas){
+    	var ret = JSON.parse( tbMarcas[i] );
+    	if( ret.cod == idMarca )
+    		strRetorno = ret.descricao;
+    }
+     return strRetorno;
+
+}

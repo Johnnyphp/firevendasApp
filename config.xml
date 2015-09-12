@@ -3,7 +3,7 @@
         xmlns:gap = "http://firevendas.com.br"
         id       = "com.firevendas.mobile"
         versionCode="10" 
-        version   = "1.0.0">
+        version   = "1.0.1">
 
     
     <name>Firevendas</name>

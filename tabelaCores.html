@@ -1,0 +1,164 @@
+﻿<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="plugins/datatimepicker/bootstrap-datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="estilo.css">
+
+<script src="jquery.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/datatimepicker/moment-with-locales.js"></script>
+<script src="plugins/datatimepicker/bootstrap-datetimepicker.js"></script>
+<script src="funcoes.js"></script>
+
+<nav class="navbar navbar-default navbar-static-side" role="navigation">
+
+    <div class="container-fluid">
+
+        <div class="navbar-header navbar-fixed-top">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Navegação</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <img style="margin-top:3px; margin-left:18px" src="img/logoBranco.png" width="45" height="39" alt=""/>
+    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Tabela de Cores</span>
+
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <ul class="nav navbar-nav">
+
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link "><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
+				<li class="landing_link active"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-cog" href="configuracoes.html"> CONFIGURAÇÃO</a></li>
+
+                <li role="separator" class="divider" style="color:#FFFFFF; text-align:center">__________________________________________</li>
+
+                <li class="landing_link"><a href="index.html">Voltar ao Inicio <span class="sr-only">(current)</span></a></li>
+                <li class="landing_link"><a target="_blank" href="http://www.firevendas.com.br">Site Firevendas <span class="sr-only">(current)</span></a></li>
+            	<li class="active"><a href="#">Suporte (37) 3287 0022</a></li>
+
+            </ul>
+        </div>
+	</div>
+</nav>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+
+		<input onClick="window.location='produtos.html'" type="button" class="bot-laranja" value="Lista de Produtos" style="width:100%">
+		<p style="margin-top:2px">
+
+		<h3 id='produto-selecionado'></h3>
+
+		<div class="form-group">
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="form-group">
+                    <input disabled class="form-control" name="txt_produto" type="text" required id="txt_produto">
+                    <input class="form-control" name="produto" type="hidden" required id="produto">
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" name="cod" type="text" required id="cod" placeholder="Código da Cor">
+                    <input class="form-control" name="descricao" type="descricao" required id="descricao" placeholder="Descrição da Cor">
+                </div>
+
+                <div class="form-group">
+                    <input onClick="window.location='produtos.html'" type="button" class="bot-vermelho" value="Cancelar" style="width:140px; float:left">
+                    <input onClick="gravarNovaCor()" type="button" class="bot-laranja" value="Gravar Cor" style="width:160px; float:right">
+                </div>
+            </div>
+        </div>
+
+        <div class='linha'></div>
+
+    	<div id="tbTabelaCores"></div>
+
+    	<script type="text/javascript">
+
+			$(function () {
+				$('#produto-selecionado').html( localStorage.getItem('indice_selecionado2') ) ;
+				$('#txt_produto').val( localStorage.getItem('indice_selecionado2') ) ;
+				$('#produto').val( localStorage.getItem('indice_selecionado2') ) ;
+				Listar();
+        	});
+
+			var operacao = "A";
+			var indice_selecionado = -1;
+			var tbTabelaCores = localStorage.getItem("tbTabelaCores");
+
+			tbTabelaCores = JSON.parse( tbTabelaCores );
+
+			if(tbTabelaCores == null)
+				tbTabelaCores = [];
+
+			console.log( tbTabelaCores )
+
+			function gravarNovaCor(){
+
+				var cor = JSON.stringify({
+					produto 	: $("#produto").val(),
+					cod			: $("#cod").val(),
+					descricao   : $("#descricao").val()
+				});
+
+				tbTabelaCores.push( cor );
+
+				localStorage.setItem("tbTabelaCores", JSON.stringify( tbTabelaCores ));
+				alert("Cor adicionada ao Produto");
+				Listar();
+			}
+
+			function Listar(){
+
+				$("#tbTabelaCores").html("");
+
+				var strHtml = '<div class="list-group">';
+				strHtml += '<a href="#" class="list-group-item active">';
+				strHtml += '<h5 class="list-group-item-heading">Produto / Código / Descrição</h5>';
+				strHtml += "</a>";
+
+				for(var i in tbTabelaCores){
+
+					var comp = JSON.parse( tbTabelaCores[i] );
+
+					if( comp.produto == $('#produto').val() ){
+
+						strHtml += '<a href="#" class="list-group-item">';
+							strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-danger glyphicon glyphicon-remove' onclick='excluirRegistro("+i+")'/>";
+
+							strHtml += '<p class="list-group-item-text">';
+								strHtml += "<br><b>"+comp.produto+"</b>";
+								strHtml += '<br>'+comp.cod;
+								strHtml += '<br>'+comp.descricao;
+								strHtml += "</p>";
+						strHtml += "</a>";
+					}
+				}
+
+				strHtml += "</div>";
+				$("#tbTabelaCores").html( strHtml );
+			}
+
+
+			function excluirRegistro( indice_selecionado ){
+				tbTabelaCores.splice(indice_selecionado, 1);
+				localStorage.setItem("tbTabelaCores", JSON.stringify( tbTabelaCores ));
+				alert("Registro excluído.");
+				Listar();
+			}
+
+    </script>
+
+	</div>
+</div>

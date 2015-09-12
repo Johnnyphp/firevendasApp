@@ -92,6 +92,25 @@ input{
 	cursor: pointer;
 }
 
+.bot-azul {
+	display: inline-block;
+	background-color:#6495ED;
+	color: #FFF;
+	padding: 8px 13px;
+	text-decoration: none;
+	box-sizing: border-box;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	border: 0px;
+	border-radius:0.3em;
+	cursor:pointer;
+}
+
+.bot-azul:hover {
+	background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.15));
+	cursor: pointer;
+}
+
 .navbar-default {
   background-color:#F7C221;
   border-color:#F7C221;

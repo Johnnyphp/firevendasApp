@@ -1,0 +1,120 @@
+﻿<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="plugins/datatimepicker/bootstrap-datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="estilo.css">
+
+<script src="jquery.js"></script>
+<script src="plugins/mascara/jquery.mask.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/datatimepicker/moment-with-locales.js"></script>
+<script src="plugins/datatimepicker/bootstrap-datetimepicker.js"></script>
+<script src="funcoes.js"></script>
+
+<nav class="navbar navbar-default navbar-static-side" role="navigation">
+	
+    <div class="container-fluid">
+
+        <div class="navbar-header navbar-fixed-top">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Navegação</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <img style="margin-top:3px; margin-left:18px" src="img/logoBranco.png" width="45" height="39" alt=""/>
+    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Nova Linha</span>
+            
+        </div>
+    
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            
+            <ul class="nav navbar-nav">
+    			
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link "><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
+				<li class="landing_link active"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-cog" href="configuracoes.html"> CONFIGURAÇÃO</a></li>
+
+                <li role="separator" class="divider" style="color:#FFFFFF; text-align:center">__________________________________________</li>
+                
+                <li class="landing_link"><a href="index.html">Voltar ao Inicio <span class="sr-only">(current)</span></a></li>
+                <li class="landing_link"><a target="_blank" href="http://www.firevendas.com.br">Site Firevendas <span class="sr-only">(current)</span></a></li>
+            	<li class="active"><a href="#">Suporte (37) 3287 0022</a></li>
+                
+            </ul>
+        </div>
+	</div>
+</nav>
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+
+    <input onClick="window.location='produtos.html'" type="button" class="bot-laranja" value="Voltar para Produtos" style="width:100%">
+	<p style="margin-top:2px">
+
+	<div class="form-group">
+        <div class="row">
+            <div class="col-md-8">
+
+                <span style="font-weight:bold; font-size:16px; color:#000" id="data-selecionada"></span>
+
+                <div class="form-group">
+                    <input class="form-control" name="cod" type="text" required id="cod" placeholder="Código da Linha">
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" name="descricao" type="text" required id="descricao" placeholder="Descrição">
+                </div>
+
+
+                <div class="linha"></div>
+
+                <div class="form-group">
+                    <input onClick="window.location='produtos.html'" type="button" class="bot-vermelho" value="Cancelar" style="width:140px; float:left">
+                    <input onClick="gravarNovaLinha()" type="button" class="bot-laranja" value="Gravar Linha" style="width:160px; float:right">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+		var operacao = "A";
+		var indice_selecionado = -1;
+		var tbLinhas = localStorage.getItem("tbLinhas");
+
+		tbLinhas = JSON.parse( tbLinhas );
+
+		if(tbLinhas == null)
+			tbLinhas = [];
+
+		console.log( tbLinhas )
+
+		function gravarNovaLinha(){
+
+			var linha = JSON.stringify({
+					cod            : $("#cod").val(),
+					descricao      : $("#descricao").val()
+				});
+
+			tbLinhas.push( linha );
+
+			localStorage.setItem("tbLinhas", JSON.stringify( tbLinhas ));
+            console.log( tbLinhas );
+			alert("Linha adicionada com Sucesso");
+			window.location='produtos.html';
+			return true;
+		}
+
+    </script>
+
+  </div>
+</div>

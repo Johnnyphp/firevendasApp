@@ -1,0 +1,154 @@
+﻿<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="plugins/datatimepicker/bootstrap-datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="estilo.css">
+
+<script src="jquery.js"></script>
+<script src="plugins/mascara/jquery.mask.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/datatimepicker/moment-with-locales.js"></script>
+<script src="plugins/datatimepicker/bootstrap-datetimepicker.js"></script>
+<script src="funcoes.js"></script>
+
+<nav class="navbar navbar-default navbar-static-side" role="navigation">
+	
+    <div class="container-fluid">
+
+        <div class="navbar-header navbar-fixed-top">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Navegação</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <img style="margin-top:3px; margin-left:18px" src="img/logoBranco.png" width="45" height="39" alt=""/>
+    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Nova Grade</span>
+            
+        </div>
+    
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            
+            <ul class="nav navbar-nav">
+    			
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link "><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
+				<li class="landing_link active"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-cog" href="configuracoes.html"> CONFIGURAÇÃO</a></li>
+
+                <li role="separator" class="divider" style="color:#FFFFFF; text-align:center">__________________________________________</li>
+                
+                <li class="landing_link"><a href="index.html">Voltar ao Inicio <span class="sr-only">(current)</span></a></li>
+                <li class="landing_link"><a target="_blank" href="http://www.firevendas.com.br">Site Firevendas <span class="sr-only">(current)</span></a></li>
+            	<li class="active"><a href="#">Suporte (37) 3287 0022</a></li>
+                
+            </ul>
+        </div>
+	</div>
+</nav>
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+
+    <input onClick="window.location='produtos.html'" type="button" class="bot-laranja" value="Voltar para Produtos" style="width:100%">
+	<p style="margin-top:2px">
+
+	<div class="form-group">
+        <div class="row">
+            <div class="col-md-8">
+
+                <span style="font-weight:bold; font-size:16px; color:#000" id="data-selecionada"></span>
+
+                <div class="form-group">
+                    <input class="form-control" name="cod" type="text" required id="cod" placeholder="Código da Grade">
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" name="descricao" type="text" required id="descricao" placeholder="Descrição">
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" name="n1" type="number" required id="n1" placeholder="Nº 1">
+                    <input class="form-control" name="n2" type="number" required id="n2" placeholder="Nº 2">
+                    <input class="form-control" name="n3" type="number" required id="n3" placeholder="Nº 3">
+                    <input class="form-control" name="n4" type="number" required id="n4" placeholder="Nº 4">
+                    <input class="form-control" name="n5" type="number" required id="n5" placeholder="Nº 5">
+                    <input class="form-control" name="n6" type="number" required id="n6" placeholder="Nº 6">
+                    <input class="form-control" name="n7" type="number" required id="n7" placeholder="Nº 7">
+                    <input class="form-control" name="n8" type="number" required id="n8" placeholder="Nº 8">
+                    <input class="form-control" name="n9" type="number" required id="n9" placeholder="Nº 9">
+                    <input class="form-control" name="n10" type="number" required id="n10" placeholder="Nº 10">
+                    <input class="form-control" name="n11" type="number" required id="n11" placeholder="Nº 11">
+                    <input class="form-control" name="n12" type="number" required id="n12" placeholder="Nº 12">
+                    <input class="form-control" name="n13" type="number" required id="n13" placeholder="Nº 13">
+                    <input class="form-control" name="n14" type="number" required id="n14" placeholder="Nº 14">
+                    <input class="form-control" name="n15" type="number" required id="n15" placeholder="Nº 15">
+                </div>
+
+
+
+                <div class="linha"></div>
+
+                <div class="form-group">
+                    <input onClick="window.location='produtos.html'" type="button" class="bot-vermelho" value="Cancelar" style="width:140px; float:left">
+                    <input onClick="gravarNovaGrade()" type="button" class="bot-laranja" value="Gravar Grade" style="width:160px; float:right">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+		var operacao = "A";
+		var indice_selecionado = -1;
+		var tbGrades = localStorage.getItem("tbGrades");
+
+		tbGrades = JSON.parse( tbGrades );
+
+		if(tbGrades == null)
+			tbGrades = [];
+
+		console.log( tbGrades )
+
+		function gravarNovaGrade(){
+
+			var grade = JSON.stringify({
+					cod            : $("#cod").val(),
+					descricao      : $("#descricao").val(),
+					n1             : $("#n1").val(),
+                    n2             : $("#n2").val(),
+                    n3             : $("#n3").val(),
+                    n4             : $("#n4").val(),
+                    n5             : $("#n5").val(),
+                    n6             : $("#n6").val(),
+                    n7             : $("#n7").val(),
+                    n8             : $("#n8").val(),
+                    n9             : $("#n9").val(),
+                    n10            : $("#n10").val(),
+                    n11            : $("#n11").val(),
+                    n12            : $("#n12").val(),
+                    n13            : $("#n13").val(),
+                    n14            : $("#n14").val(),
+                    n15            : $("#n15").val()
+				});
+
+			tbGrades.push( grade );
+
+			localStorage.setItem("tbGrades", JSON.stringify( tbGrades ));
+            console.log( tbGrades );
+			alert("Grade adicionado com Sucesso");
+			window.location='produtos.html';
+			return true;
+		}
+
+    </script>
+
+  </div>
+</div>

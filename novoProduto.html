@@ -1,0 +1,193 @@
+﻿<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="plugins/datatimepicker/bootstrap-datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="estilo.css">
+
+<script src="jquery.js"></script>
+<script src="plugins/mascara/jquery.mask.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/datatimepicker/moment-with-locales.js"></script>
+<script src="plugins/datatimepicker/bootstrap-datetimepicker.js"></script>
+<script src="funcoes.js"></script>
+
+<nav class="navbar navbar-default navbar-static-side" role="navigation">
+
+    <div class="container-fluid">
+
+        <div class="navbar-header navbar-fixed-top">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Navegação</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <img style="margin-top:3px; margin-left:18px" src="img/logoBranco.png" width="45" height="39" alt=""/>
+    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Novo Produto</span>
+
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <ul class="nav navbar-nav">
+
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link "><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
+				<li class="landing_link active"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-cog" href="configuracoes.html"> CONFIGURAÇÃO</a></li>
+
+                <li role="separator" class="divider" style="color:#FFFFFF; text-align:center">__________________________________________</li>
+
+                <li class="landing_link"><a href="index.html">Voltar ao Inicio <span class="sr-only">(current)</span></a></li>
+                <li class="landing_link"><a target="_blank" href="http://www.firevendas.com.br">Site Firevendas <span class="sr-only">(current)</span></a></li>
+            	<li class="active"><a href="#">Suporte (37) 3287 0022</a></li>
+
+            </ul>
+        </div>
+	</div>
+</nav>
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+
+    <input onClick="window.location='produtos.html'" type="button" class="bot-laranja" value="Lista de Produtos" style="width:100%">
+	<p style="margin-top:2px">
+
+	<div class="form-group">
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="form-group">
+                    <input class="form-control" name="referencia" type="text" required id="referencia" placeholder="Referência">
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control" name="marca" id="marca">
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control" name="grade" id="grade">
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control" name="linha" id="linha">
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" name="preco_fabrica" type="text" required id="preco_fabrica" placeholder="Preço Fabrica">
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" name="preco_venda" type="text" required id="preco_venda" placeholder="Preço Venda">
+                </div>
+
+                <div class="linha"></div>
+
+                <div class="form-group">
+                    <input onClick="window.location='produtos.html'" type="button" class="bot-vermelho" value="Cancelar" style="width:140px; float:left">
+                    <input onClick="gravarNovoProduto()" type="button" class="bot-laranja" value="Gravar Produto" style="width:160px; float:right">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+		var operacao = "A";
+		var indice_selecionado = -1;
+		var tbProdutos = localStorage.getItem("tbProdutos");
+
+		tbProdutos = JSON.parse( tbProdutos );
+
+		if(tbProdutos == null)
+			tbProdutos = [];
+
+		console.log( tbProdutos )
+
+		function gravarNovoProduto(){
+
+            var precoFabrica = $("#preco_fabrica").val().replace(',', '.');
+            var precoVenda   = $("#preco_venda").val().replace(',', '.');
+
+			var produto = JSON.stringify({
+					referencia      : $("#referencia").val(),
+					cod_marca       : $("#marca").val(),
+					cod_grade       : $("#grade").val(),
+					preco_fabrica   : precoFabrica,
+					preco_venda     : precoVenda,
+                    cod_linha       : $("#linha").val()
+				});
+
+			tbProdutos.push( produto );
+
+			localStorage.setItem("tbProdutos", JSON.stringify( tbProdutos ));
+			alert("Produto adicionado com Sucesso");
+			window.location='produtos.html';
+			return true;
+		}
+
+		function mostraMarcas(){
+
+			var strRetorno = '';
+			var tbMarcas = JSON.parse( localStorage.getItem('tbMarcas') );
+
+            console.log( tbMarcas );
+
+			for(var i in tbMarcas){
+                var ret = JSON.parse( tbMarcas[i] );
+				strRetorno += '<option value="'+ret.cod+'">'+ret.descricao+'</option>';
+			}
+			$('#marca').html( strRetorno );
+
+		}
+
+        mostraMarcas();
+
+        function mostraGrades(){
+
+            var strRetorno = '';
+            var tbGrades = JSON.parse( localStorage.getItem('tbGrades') );
+
+            console.log( tbGrades );
+
+            for(var i in tbGrades){
+                var ret = JSON.parse( tbGrades[i] );
+                strRetorno += '<option value="'+ret.cod+'">'+ret.descricao+'</option>';
+            }
+            $('#grade').html( strRetorno );
+
+        }
+
+        mostraGrades();
+
+        function mostraLinhas(){
+
+            var strRetorno = '';
+            var tbLinhas = JSON.parse( localStorage.getItem('tbLinhas') );
+
+            console.log( tbLinhas );
+
+            for(var i in tbLinhas){
+                var ret = JSON.parse( tbLinhas[i] );
+                strRetorno += '<option value="'+ret.cod+'">'+ret.descricao+'</option>';
+            }
+            $('#linha').html( strRetorno );
+
+        }
+
+        mostraLinhas();
+
+    </script>
+
+  </div>
+</div>
