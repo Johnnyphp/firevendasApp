@@ -37,7 +37,7 @@ function gravarNovo(){
 		$("#senha-firevendas").val() != '' && 
 		$("#empresa").val() != '' ){
 				
-		localStorage.setItem('fv.representacao', $("#email-representacao").val() );
+		localStorage.setItem('fv.representacao', $("#representacao").val() );
 		localStorage.setItem('fv.nome', $("#nome").val() );
 		localStorage.setItem('fv.telefone', $("#telefone").val() );
 		localStorage.setItem('fv.email_firevendas', $("#email-firevendas").val() );
@@ -84,6 +84,23 @@ function nomeMarca( idMarca ){
     	var ret = JSON.parse( tbMarcas[i] );
     	if( ret.cod == idMarca )
     		strRetorno = ret.descricao;
+    }
+     return strRetorno;
+
+}
+
+var cnpjCliente;
+function nomeCliente( cnpjCliente ){
+
+	var strRetorno = '';
+    var tbClientes = JSON.parse( localStorage.getItem('tbClientes') );
+
+    console.log( tbClientes );
+
+    for(var i in tbClientes){
+    	var ret = JSON.parse( tbClientes[i] );
+    	if( ret.cnpj == cnpjCliente )
+    		strRetorno = ret.razao_social;
     }
      return strRetorno;
 

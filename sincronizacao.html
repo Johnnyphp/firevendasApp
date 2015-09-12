@@ -9,7 +9,7 @@
 <script src="funcoes.js"></script>
 
 <nav class="navbar navbar-default navbar-static-side" role="navigation">
-  
+
     <div class="container-fluid">
 
         <div class="navbar-header navbar-fixed-top">
@@ -19,16 +19,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
+
             <img style="margin-top:3px; margin-left:18px" src="img/logoBranco.png" width="45" height="39" alt=""/>
         <span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Sincronização</span>
-            
+
         </div>
-    
+
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            
+
             <ul class="nav navbar-nav">
-          
+
                 <li class="landing_link"><a href="#"></a></li>
                 <li class="landing_link"><a href="#"></a></li>
                 <li class="landing_link active"><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
@@ -41,7 +41,7 @@
                 <li class="landing_link"><a class="glyphicon glyphicon-cog" href="configuracoes.html"> CONFIGURAÇÃO</a></li>
 
                 <li role="separator" class="divider" style="color:#FFFFFF; text-align:center">__________________________________________</li>
-                
+
                 <li class="landing_link"><a href="index.html">Voltar ao Inicio <span class="sr-only">(current)</span></a></li>
                 <li class="landing_link"><a target="_blank" href="http://www.firevendas.com.br">Site Firevendas <span class="sr-only">(current)</span></a></li>
               <li class="active"><a href="#">Suporte (37) 3287 0022</a></li>
@@ -61,19 +61,30 @@
       <button style="display:none" id="tela-dados-acesso2" type="button" class="btn btn-danger" onClick="apagarDadosAcesso()"> Deseja apagar seus dados de Acesso?</button>
   </div>
   <div class="panel-body">
-      <button style="width:100%" type="button" class="btn btn-success">Sinc Marcas</button>
+
+      <button onClick='sincMarcas()' style="width:100%" type="button" class="btn btn-success">Sinc Marcas</button>
       <div class='row'></div>
-      <button style="width:100%" type="button" class="btn btn-success">Sinc Grades</button>
+
+      <button onClick='sincGrades()' style="width:100%" type="button" class="btn btn-success">Sinc Grades</button>
       <div class='row'></div>
-      <button style="width:100%" type="button" class="btn btn-success">Sinc Condições de Pagto</button>
+
+      <button onClick='sincLinhas()' style="width:100%" type="button" class="btn btn-success">Sinc Linhas Produção</button>
       <div class='row'></div>
+
+      <button onClick='sincCondicoesPagto()' style="width:100%" type="button" class="btn btn-success">Sinc Condições de Pagto</button>
+      <div class='row'></div>
+
       <button onClick='sincProdutos()' style="width:100%" type="button" class="btn btn-success">Sinc Produtos</button>
       <div class='row'></div>
-      <button style="width:100%" type="button" class="btn btn-success">Sinc Cores</button>
+
+      <button onClick='sincTabelaCores()' style="width:100%" type="button" class="btn btn-success">Sinc Tabela Cores</button>
       <div class='row'></div>
+
       <button onClick='sincClientes()' style="width:100%" type="button" class="btn btn-success">Sinc Clientes</button>
       <div class='row'></div>
-      <button style="width:100%" type="button" class="btn btn-success">Sinc Pedidos</button>
+
+      <button onClick='sincPedidos()' style="width:100%" type="button" class="btn btn-success">Sinc Pedidos</button>
+
   </div>
 </div>
 
@@ -83,7 +94,7 @@
 		<div class="modal-content">
 			<div class="modal-body">
 				<div><img src="img/loading.gif" /></div>
-				<div>Aguarde, porcessando sua solicitação...</div>
+				<div>Aguarde, processando sua solicitação...</div>
 			</div>
 		</div>
 	</div>
@@ -355,5 +366,476 @@ function sincProdutos(){
 
   }
 
+function sincGrades(){
 
+  $('#loading').modal('show');
+
+  //Prepara Clientes para enviar para o Servidor
+  var operacao = "A";
+  var indice_selecionado = -1;
+  var tbGrades = localStorage.getItem("tbGrades");
+
+  tbGrades = JSON.parse( tbGrades );
+
+  if(tbGrades == null)
+    tbGrades = [];
+
+  console.log( tbGrades );
+
+  var strEnvia = '';
+
+  for(var i in tbGrades){
+
+    var pro = JSON.parse( tbGrades[i] );
+
+    pro_cod       = pro.cod.replace('&', 'E');
+    pro_descricao = pro.descricao.replace('&', 'E');
+    pro_n1        = pro.n1.replace('&', 'E');
+    pro_n2        = pro.n2.replace('&', 'E');
+    pro_n3        = pro.n3.replace('&', 'E');
+    pro_n4        = pro.n4.replace('&', 'E');
+    pro_n5        = pro.n5.replace('&', 'E');
+    pro_n6        = pro.n6.replace('&', 'E');
+    pro_n7        = pro.n7.replace('&', 'E');
+    pro_n8        = pro.n8.replace('&', 'E');
+    pro_n9        = pro.n9.replace('&', 'E');
+    pro_n10       = pro.n10.replace('&', 'E');
+    pro_n11       = pro.n11.replace('&', 'E');
+    pro_n12       = pro.n12.replace('&', 'E');
+    pro_n13       = pro.n13.replace('&', 'E');
+    pro_n14       = pro.n14.replace('&', 'E');
+    pro_n15       = pro.n15.replace('&', 'E');
+
+    strEnvia += pro_cod+'|';
+    strEnvia += pro_descricao+'|';
+    strEnvia += pro_n1+'|';
+    strEnvia += pro_n2+'|';
+    strEnvia += pro_n3+'|';
+    strEnvia += pro_n4+'|';
+    strEnvia += pro_n5+'|';
+    strEnvia += pro_n6+'|';
+    strEnvia += pro_n7+'|';
+    strEnvia += pro_n8+'|';
+    strEnvia += pro_n9+'|';
+    strEnvia += pro_n10+'|';
+    strEnvia += pro_n11+'|';
+    strEnvia += pro_n12+'|';
+    strEnvia += pro_n13+'|';
+    strEnvia += pro_n14+'|';
+    strEnvia += pro_n15+'|';
+    strEnvia += '§';
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "http://www.firevendas.com.br/app/sincGrades.php",
+    data: "email_firevendas="+localStorage.getItem('fv.email_firevendas')+"&senha_firevendas="+localStorage.getItem('fv.senha_firevendas')+"&empresa_firevendas="+localStorage.getItem('fv.empresa')+"&strEnvia="+strEnvia,
+    success: function(retorno){
+
+      if( retorno == 'ERROR'){
+        alert('Erro na Sincronização de Grades, Consulte o suporte técnico.');
+      }else{
+
+      console.log(retorno)
+      var p = retorno.split('[PARTE2]');
+
+      //Zera o Cadastro e Atualiza com os Dados do Servidor
+      if( p[1] != ''){
+
+        tbGrades.length = 0;
+
+        if( tbGrades == null )
+          tbGrades = [];
+
+        localStorage.setItem("tbGrades", '');
+        localStorage.setItem("tbGrades", JSON.stringify( tbGrades ));
+
+        var p2 = p[1].split('§');
+
+        for(var i in p2){
+
+          var p3 = p2[i].split('|');
+
+          if( p3[3] != undefined && p3[3] != '' ){
+
+            var grade = JSON.stringify({
+              cod       : p3[0],
+              descricao : p3[1],
+              n1        : p3[2],
+              n2        : p3[3],
+              n3        : p3[4],
+              n4        : p3[5],
+              n5        : p3[6],
+              n6        : p3[7],
+              n7        : p3[8],
+              n8        : p3[9],
+              n9        : p3[10],
+              n10       : p3[11],
+              n11       : p3[12],
+              n12       : p3[13],
+              n13       : p3[14],
+              n14       : p3[15],
+              n15       : p3[16]
+            });
+
+            tbGrades.push( grade );
+          }
+
+        }
+          localStorage.setItem("tbGrades", JSON.stringify( tbGrades ));
+        }
+
+        alert('Grades sincronizadas');
+        console.log( tbGrades );
+        $('#loading').modal('hide');
+      }
+    },
+      error: function(retorno){
+      alert('Um erro inesperado aconteceu durante a Sincronização');
+    }
+  });
+}
+
+function sincMarcas(){
+
+  $('#loading').modal('show');
+
+  //Prepara Clientes para enviar para o Servidor
+  var operacao = "A";
+  var indice_selecionado = -1;
+  var tbMarcas = localStorage.getItem("tbMarcas");
+
+  tbMarcas = JSON.parse( tbMarcas );
+
+  if(tbMarcas == null)
+    tbMarcas = [];
+
+  console.log( tbMarcas );
+
+  var strEnvia = '';
+
+  for(var i in tbMarcas ){
+
+    var pro = JSON.parse( tbMarcas[i] );
+
+    pro_cod       = pro.cod.replace('&', 'E');
+    pro_descricao = pro.descricao.replace('&', 'E');
+
+    strEnvia += pro_cod+'|';
+    strEnvia += pro_descricao+'|';
+    strEnvia += '§';
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "http://www.firevendas.com.br/app/sincMarcas.php",
+    data: "email_firevendas="+localStorage.getItem('fv.email_firevendas')+"&senha_firevendas="+localStorage.getItem('fv.senha_firevendas')+"&empresa_firevendas="+localStorage.getItem('fv.empresa')+"&strEnvia="+strEnvia,
+    success: function(retorno){
+
+      if( retorno == 'ERROR'){
+        alert('Erro na Sincronização de Grades, Consulte o suporte técnico.');
+      }else{
+
+      console.log(retorno)
+      var p = retorno.split('[PARTE2]');
+
+      //Zera o Cadastro e Atualiza com os Dados do Servidor
+      if( p[1] != ''){
+
+        tbMarcas.length = 0;
+
+        if( tbMarcas == null )
+          tbMarcas = [];
+
+        localStorage.setItem("tbMarcas", '');
+        localStorage.setItem("tbMarcas", JSON.stringify( tbMarcas ));
+
+        var p2 = p[1].split('§');
+
+        for(var i in p2){
+
+          var p3 = p2[i].split('|');
+
+          if( p3[0] != undefined && p3[0] != '' ){
+
+            var marca = JSON.stringify({
+              cod       : p3[0],
+              descricao : p3[1]
+            });
+
+            tbMarcas.push( marca );
+          }
+
+        }
+          localStorage.setItem("tbMarcas", JSON.stringify( tbMarcas ));
+        }
+
+        alert('Marcas sincronizadas');
+        console.log( tbMarcas );
+        $('#loading').modal('hide');
+      }
+    },
+      error: function(retorno){
+      alert('Um erro inesperado aconteceu durante a Sincronização');
+    }
+  });
+}
+
+function sincLinhas(){
+
+  $('#loading').modal('show');
+
+  //Prepara Clientes para enviar para o Servidor
+  var operacao = "A";
+  var indice_selecionado = -1;
+  var tbLinhas = localStorage.getItem("tbLinhas");
+
+  tbLinhas = JSON.parse( tbLinhas );
+
+  if(tbLinhas == null)
+    tbLinhas = [];
+
+  console.log( tbLinhas );
+
+  var strEnvia = '';
+
+  for(var i in tbLinhas ){
+
+    var pro = JSON.parse( tbLinhas[i] );
+
+    pro_cod       = pro.cod.replace('&', 'E');
+    pro_descricao = pro.descricao.replace('&', 'E');
+
+    strEnvia += pro_cod+'|';
+    strEnvia += pro_descricao+'|';
+    strEnvia += '§';
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "http://www.firevendas.com.br/app/sincLinhas.php",
+    data: "email_firevendas="+localStorage.getItem('fv.email_firevendas')+"&senha_firevendas="+localStorage.getItem('fv.senha_firevendas')+"&empresa_firevendas="+localStorage.getItem('fv.empresa')+"&strEnvia="+strEnvia,
+    success: function(retorno){
+
+      if( retorno == 'ERROR'){
+        alert('Erro na Sincronização de Linhas, Consulte o suporte técnico.');
+      }else{
+
+      console.log(retorno)
+      var p = retorno.split('[PARTE2]');
+
+      //Zera o Cadastro e Atualiza com os Dados do Servidor
+      if( p[1] != ''){
+
+        tbLinhas.length = 0;
+
+        if( tbLinhas == null )
+          tbLinhas = [];
+
+        localStorage.setItem("tbLinhas", '');
+        localStorage.setItem("tbLinhas", JSON.stringify( tbLinhas ));
+
+        var p2 = p[1].split('§');
+
+        for(var i in p2){
+
+          var p3 = p2[i].split('|');
+
+          if( p3[0] != undefined && p3[0] != '' ){
+
+            var linha = JSON.stringify({
+              cod       : p3[0],
+              descricao : p3[1]
+            });
+
+            tbLinhas.push( linha );
+          }
+
+        }
+          localStorage.setItem("tbLinhas", JSON.stringify( tbLinhas ));
+        }
+
+        alert('Linhas sincronizadas');
+        console.log( tbLinhas );
+        $('#loading').modal('hide');
+      }
+    },
+      error: function(retorno){
+      alert('Um erro inesperado aconteceu durante a Sincronização');
+    }
+  });
+}
+
+function sincTabelaCores(){
+
+  $('#loading').modal('show');
+
+  //Prepara Clientes para enviar para o Servidor
+  var operacao = "A";
+  var indice_selecionado = -1;
+  var tbTabelaCores = localStorage.getItem("tbTabelaCores");
+
+  tbTabelaCores = JSON.parse( tbTabelaCores );
+
+  if(tbTabelaCores == null)
+    tbTabelaCores = [];
+
+  console.log( tbTabelaCores );
+
+  var strEnvia = '';
+
+  for(var i in tbTabelaCores ){
+
+    var pro = JSON.parse( tbTabelaCores[i] );
+
+    pro_produto   = pro.produto.replace('&', 'E');
+    pro_cod       = pro.cod.replace('&', 'E');
+    pro_descricao = pro.descricao.replace('&', 'E');
+
+    strEnvia += pro_produto+'|';
+    strEnvia += pro_cod+'|';
+    strEnvia += pro_descricao+'|';
+    strEnvia += '§';
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "http://www.firevendas.com.br/app/sincTabelaCores.php",
+    data: "email_firevendas="+localStorage.getItem('fv.email_firevendas')+"&senha_firevendas="+localStorage.getItem('fv.senha_firevendas')+"&empresa_firevendas="+localStorage.getItem('fv.empresa')+"&strEnvia="+strEnvia,
+    success: function(retorno){
+
+      if( retorno == 'ERROR'){
+        alert('Erro na Sincronização de Linhas, Consulte o suporte técnico.');
+      }else{
+
+      console.log(retorno)
+      var p = retorno.split('[PARTE2]');
+
+      //Zera o Cadastro e Atualiza com os Dados do Servidor
+      if( p[1] != ''){
+
+        tbTabelaCores.length = 0;
+
+        if( tbTabelaCores == null )
+          tbTabelaCores = [];
+
+        localStorage.setItem("tbTabelaCores", '');
+        localStorage.setItem("tbTabelaCores", JSON.stringify( tbTabelaCores ));
+
+        var p2 = p[1].split('§');
+
+        for(var i in p2){
+
+          var p3 = p2[i].split('|');
+
+          if( p3[0] != undefined && p3[0] != '' ){
+
+            var cor = JSON.stringify({
+              produto   : p3[0],
+              cod       : p3[1],
+              descricao : p3[2]
+            });
+
+            tbTabelaCores.push( cor );
+          }
+
+        }
+          localStorage.setItem("tbTabelaCores", JSON.stringify( tbTabelaCores ));
+        }
+
+        alert('Tabela de Cores sincronizada');
+        console.log( tbTabelaCores );
+        $('#loading').modal('hide');
+      }
+    },
+      error: function(retorno){
+      alert('Um erro inesperado aconteceu durante a Sincronização');
+    }
+  });
+}
+
+function sincCondicoesPagto(){
+
+  $('#loading').modal('show');
+
+  //Prepara Clientes para enviar para o Servidor
+  var operacao = "A";
+  var indice_selecionado = -1;
+  var tbCondicoesPagto = localStorage.getItem("tbCondicoesPagto");
+
+  tbCondicoesPagto = JSON.parse( tbCondicoesPagto );
+
+  if(tbCondicoesPagto == null)
+    tbCondicoesPagto = [];
+
+  console.log( tbCondicoesPagto );
+
+  var strEnvia = '';
+
+  for(var i in tbCondicoesPagto ){
+
+    var pro = JSON.parse( tbCondicoesPagto[i] );
+
+    pro_cod       = pro.cod.replace('&', 'E');
+    pro_descricao = pro.descricao.replace('&', 'E');
+
+    strEnvia += pro_cod+'|';
+    strEnvia += pro_descricao+'|';
+    strEnvia += '§';
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "http://www.firevendas.com.br/app/sincCondicoesPagto.php",
+    data: "email_firevendas="+localStorage.getItem('fv.email_firevendas')+"&senha_firevendas="+localStorage.getItem('fv.senha_firevendas')+"&empresa_firevendas="+localStorage.getItem('fv.empresa')+"&strEnvia="+strEnvia,
+    success: function(retorno){
+
+      if( retorno == 'ERROR'){
+        alert('Erro na Sincronização de Condições de Pagamento, Consulte o suporte técnico.');
+      }else{
+
+      console.log(retorno)
+      var p = retorno.split('[PARTE2]');
+
+      //Zera o Cadastro e Atualiza com os Dados do Servidor
+      if( p[1] != ''){
+
+        tbCondicoesPagto.length = 0;
+
+        if( tbCondicoesPagto == null )
+          tbCondicoesPagto = [];
+
+        localStorage.setItem("tbCondicoesPagto", '');
+        localStorage.setItem("tbCondicoesPagto", JSON.stringify( tbCondicoesPagto ));
+
+        var p2 = p[1].split('§');
+
+        for(var i in p2){
+
+          var p3 = p2[i].split('|');
+
+          if( p3[0] != undefined && p3[0] != '' ){
+
+            var cond = JSON.stringify({
+              cod       : p3[0],
+              descricao : p3[1]
+            });
+
+            tbCondicoesPagto.push( cond );
+          }
+
+        }
+          localStorage.setItem("tbCondicoesPagto", JSON.stringify( tbCondicoesPagto ));
+        }
+
+        alert('Tabela de Condições de Pagamento sincronizada');
+        console.log( tbCondicoesPagto );
+        $('#loading').modal('hide');
+      }
+    },
+      error: function(retorno){
+      alert('Um erro inesperado aconteceu durante a Sincronização');
+    }
+  });
+}
 </script>
