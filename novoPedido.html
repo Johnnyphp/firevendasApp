@@ -64,7 +64,7 @@
             <div class="col-md-8">
 
                 <div class="form-group">
-                    <input onKeyPress="verificaCampo()" class="form-control" name="numero" type="text" required id="numero" placeholder="Numero do Pedido">
+                    <input class="form-control" name="numero" type="text" required id="numero" placeholder="Numero do Pedido">
                 </div>
 
                 <div class="form-group">
@@ -382,7 +382,7 @@
         }
 
         function addItem(){
-            if( bloqueio == true )
+            if( $('#numero').val() == '' )
                 alert('É necessário inserir um numero de Pedido');
             else
                 $('#itens-pedido').modal('show');
