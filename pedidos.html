@@ -62,7 +62,7 @@
             <img style="width:10%; float:rigth" src='img/icon_pesquisa.png' alt='Pesquisar' class='btnPesquisar' onclick='pesquisar()'/>
     	</div>
 
-    	<div id="tbProdutos"></div>
+    	<div id="tbPedidos"></div>
 
     	<script type="text/javascript">
 
@@ -72,65 +72,74 @@
 
 			var operacao = "A";
 			var indice_selecionado = -1;
-			var tbProdutos = localStorage.getItem("tbProdutos");
+			var tbPedidos = localStorage.getItem("tbPedidos");
 
-			tbProdutos = JSON.parse( tbProdutos );
+			tbPedidos = JSON.parse( tbPedidos );
 
-			if(tbProdutos == null)
-				tbProdutos = [];
+			if(tbPedidos == null)
+				tbPedidos = [];
 
-			console.log( tbProdutos )
+			console.log( tbPedidos )
 
 			function Listar(){
 
-				$("#tbProdutos").html("");
+				var strEnviado;
+				$("#tbPedidos").html("");
 
 				var strHtml = '<div class="list-group">';
 				strHtml += '<a href="#" class="list-group-item active">';
-				strHtml += '<h5 class="list-group-item-heading">Referência / Marca / Grade / Preço Venda</h5>';
+				strHtml += '<h5 class="list-group-item-heading">Numero / Cliente / Total / Enviado</h5>';
 				strHtml += "</a>";
 
-				for(var i in tbProdutos){
+				for(var i in tbPedidos){
 
-					var comp = JSON.parse( tbProdutos[i] );
+					var comp = JSON.parse( tbPedidos[i] );
 
-					//if( localStorage.getItem('fv.data_selecionada') == comp.data ){
-						var nome_marca = nomeMarca( comp.cod_marca );
-						var nome_grade = nomeGrade( comp.cod_grade );
+						var nome_cliente = nomeCliente( comp.cliente );
+						var total_pares = totalParesPedido( comp.numero );
 
 						strHtml += '<a href="#" class="list-group-item">';
-							strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-danger glyphicon glyphicon-remove' onclick='excluirRegistro("+i+")'/>";
-							strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-success glyphicon glyphicon-edit' onclick='abrirEdicao("+i+")'/>";
-							strHtml += "<button style='margin:5px; height:30px' class='btn-success' onclick='tabelaCores("+'"'+comp.referencia+'"'+")'>Tabela de Cores</button>";
+
+							if( comp.enviado == '0' ){
+								strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-danger glyphicon glyphicon-remove' onclick='excluirRegistro("+i+")'/>";
+							}
+
+							if( comp.enviado == '0')
+								strEnviado = 'Enviado: Não';
+							else
+								strEnviado = 'Enviado: Sim';
 
 							strHtml += '<p class="list-group-item-text">';
-								strHtml += "<br><b>"+comp.referencia+"</b>";
-								strHtml += '<br>'+nome_marca;
-								strHtml += '<br>'+nome_grade;
-								strHtml += '<br>R$ '+comp.preco_venda;
-								strHtml += "</p>";
+								strHtml += "<br><b>"+comp.numero+"</b>";
+								strHtml += '<br>'+nome_cliente;
+								strHtml += '<br>'+total_pares+' par(es)';
+								strHtml += '<br>'+strEnviado+'';
+							strHtml += "</p>";
+
 						strHtml += "</a>";
-					//}
 				}
 
 				strHtml += "</div>";
-				$("#tbProdutos").html( strHtml );
+				$("#tbPedidos").html( strHtml );
 			}
+
 
 			function pesquisar(){
 
-				$("#tbProdutos").html("");
+				var strEnviado;
+
+				$("#tbPedidos").html("");
 
 				var strHtml = '<div class="list-group">';
 				strHtml += '<a href="#" class="list-group-item active">';
-				strHtml += '<h5 class="list-group-item-heading">Referência / Marca / Grade / Preço Venda</h5>';
+				strHtml += '<h5 class="list-group-item-heading">Numero / Cliente / Total / Enviado</h5>';
 				strHtml += "</a>";
 
-				for(var i in tbProdutos){
+				for(var i in tbPedidos){
 
-					var comp = JSON.parse( tbProdutos[i] );
+					var comp = JSON.parse( tbPedidos[i] );
 
-					var tempBusca = comp.referencia.toLowerCase();
+					var tempBusca = comp.numero.toLowerCase();
 					var partes = tempBusca.split( ( $('#strBusca').val().toLowerCase() ) );
 
 					console.log(tempBusca);
@@ -139,26 +148,33 @@
 
 					if( partes[1] != undefined ){
 
-						var nome_marca = nomeMarca( comp.cod_marca );
-						var nome_grade = nomeGrade( comp.cod_grade );
+						var nome_cliente = nomeCliente( comp.cliente );
+						var total_pares = totalParesPedido( comp.numero );
 
 						strHtml += '<a href="#" class="list-group-item">';
-							strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-danger glyphicon glyphicon-remove' onclick='excluirRegistro("+i+")'/>";
-							strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-success glyphicon glyphicon-edit' onclick='abrirEdicao("+i+")'/>";
-							strHtml += "<button style='margin:5px; height:30px' class='btn-success' onclick='tabelaCores("+'"'+comp.referencia+'"'+")'>Tabela de Cores</button>";
+
+							if( comp.enviado == '0' ){
+								strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-danger glyphicon glyphicon-remove' onclick='excluirRegistro("+i+")'/>";
+							}
+
+							if( comp.enviado == '0')
+								strEnviado = 'Enviado: Não';
+							else
+								strEnviado = 'Enviado: Sim';
 
 							strHtml += '<p class="list-group-item-text">';
-								strHtml += "<br><b>"+comp.referencia+"</b>";
-								strHtml += '<br>'+nome_marca;
-								strHtml += '<br>'+nome_grade;
-								strHtml += '<br>R$ '+comp.preco_venda;
+								strHtml += "<br><b>"+comp.numero+"</b>";
+								strHtml += '<br>'+nome_cliente;
+								strHtml += '<br>'+total_pares+' par(es)';
+								strHtml += '<br>'+strEnviado+'';
 							strHtml += "</p>";
+
 						strHtml += "</a>";
 					}
 				}
 
 				strHtml += "</div>";
-				$("#tbProdutos").html( strHtml );
+				$("#tbPedidos").html( strHtml );
 			}
 
 

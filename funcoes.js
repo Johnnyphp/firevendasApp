@@ -105,3 +105,88 @@ function nomeCliente( cnpjCliente ){
      return strRetorno;
 
 }
+
+var codCor;
+function nomeCor( codCor ){
+
+	var strRetorno = '';
+    var tbTabelaCores = JSON.parse( localStorage.getItem('tbTabelaCores') );
+
+    console.log( tbTabelaCores );
+
+    for(var i in tbTabelaCores){
+    	var ret = JSON.parse( tbTabelaCores[i] );
+    	if( ret.cod == codCor )
+    		strRetorno = ret.descricao;
+    }
+     return strRetorno;
+
+}
+
+var codItem;
+function totalItem( codItem ){
+
+	var strRetorno = '';
+    var tbItemPedido = JSON.parse( localStorage.getItem('tbItemPedido') );
+
+    console.log( 'COD ITEM: '+codItem );
+
+    var ret = JSON.parse( tbItemPedido[ codItem ] );
+    var soma = 0;
+
+	if( ret.n1 != '' ){ soma = parseInt( ret.n1 ) + soma; }
+	if( ret.n2 != '' ){ soma = parseInt( ret.n2 ) + soma; }
+	if( ret.n3 != '' ){ soma = parseInt( ret.n3 ) + soma; }
+	if( ret.n4 != '' ){ soma = parseInt( ret.n4 ) + soma; }
+	if( ret.n5 != '' ){ soma = parseInt( ret.n5 ) + soma; }
+	if( ret.n6 != '' ){ soma = parseInt( ret.n6 ) + soma; }
+	if( ret.n7 != '' ){ soma = parseInt( ret.n7 ) + soma; }
+	if( ret.n8 != '' ){ soma = parseInt( ret.n8 ) + soma; }
+	if( ret.n9 != '' ){ soma = parseInt( ret.n9 ) + soma; }
+	if( ret.n10 != '' ){ soma = parseInt( ret.n10 ) + soma; }
+	if( ret.n11 != '' ){ soma = parseInt( ret.n11 ) + soma; }
+	if( ret.n12 != '' ){ soma = parseInt( ret.n12 ) + soma; }
+	if( ret.n13 != '' ){ soma = parseInt( ret.n13 ) + soma; }
+	if( ret.n14 != '' ){ soma = parseInt( ret.n14 ) + soma; }
+	if( ret.n15 != '' ){ soma = parseInt( ret.n15 ) + soma; }
+
+    return soma;
+
+}
+
+var codPedido;
+function totalParesPedido( codPedido ){
+
+	var soma = 0;
+	var strRetorno = '';
+    var tbItemPedido = JSON.parse( localStorage.getItem('tbItemPedido') );
+
+    console.log( 'COD ITEM: '+codItem );
+
+    for(var i in tbItemPedido){
+
+    	var ret = JSON.parse( tbItemPedido[ i ] );
+
+    	if( ret.numeroPedido == codPedido ){
+
+			if( ret.n1 != '' ){ soma = parseInt( ret.n1 ) + soma; }
+			if( ret.n2 != '' ){ soma = parseInt( ret.n2 ) + soma; }
+			if( ret.n3 != '' ){ soma = parseInt( ret.n3 ) + soma; }
+			if( ret.n4 != '' ){ soma = parseInt( ret.n4 ) + soma; }
+			if( ret.n5 != '' ){ soma = parseInt( ret.n5 ) + soma; }
+			if( ret.n6 != '' ){ soma = parseInt( ret.n6 ) + soma; }
+			if( ret.n7 != '' ){ soma = parseInt( ret.n7 ) + soma; }
+			if( ret.n8 != '' ){ soma = parseInt( ret.n8 ) + soma; }
+			if( ret.n9 != '' ){ soma = parseInt( ret.n9 ) + soma; }
+			if( ret.n10 != '' ){ soma = parseInt( ret.n10 ) + soma; }
+			if( ret.n11 != '' ){ soma = parseInt( ret.n11 ) + soma; }
+			if( ret.n12 != '' ){ soma = parseInt( ret.n12 ) + soma; }
+			if( ret.n13 != '' ){ soma = parseInt( ret.n13 ) + soma; }
+			if( ret.n14 != '' ){ soma = parseInt( ret.n14 ) + soma; }
+			if( ret.n15 != '' ){ soma = parseInt( ret.n15 ) + soma; }
+		}
+	}
+
+    return soma;
+
+}

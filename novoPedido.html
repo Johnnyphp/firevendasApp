@@ -146,8 +146,8 @@
                     <input class="form-control" name="precoProduto" type="text" required id="precoProduto" placeholder="PrecoProduto">
 
                     <div class="modal-footer">
-                        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-                        <button class="btn btn-primary">Adicionar Item</button>
+                        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                        <button class="btn btn-primary" onClick="adicionarItem()">Adicionar Item</button>
                     </div>
 
                 </div>
@@ -203,6 +203,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n1+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n1" id="n1"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n1" id="n1" value="0">';
                     }
 
                     if( ret.n2 != '' && ret.n2 != '0' ){
@@ -210,6 +212,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n2+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n2" id="n2"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n2" id="n2" value="0">';
                     }
 
                     if( ret.n3 != '' && ret.n3 != '0' ){
@@ -217,6 +221,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n3+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n3" id="n3"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n3" id="n3" value="0">';
                     }
 
                     if( ret.n4 != '' && ret.n4 != '0' ){
@@ -224,6 +230,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n4+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n4" id="n4"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n4" id="n4" value="0">';
                     }
 
                     if( ret.n5 != '' && ret.n5 != '0' ){
@@ -231,6 +239,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n5+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n5" id="n5"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n5" id="n5" value="0">';
                     }
 
                     if( ret.n6 != '' && ret.n6 != '0' ){
@@ -238,6 +248,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n6+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n6" id="n6"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n6" id="n6" value="0">';
                     }
 
                     if( ret.n7 != '' && ret.n7 != '0' ){
@@ -245,6 +257,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n7+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n7" id="n7"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n7" id="n7" value="0">';
                     }
 
                     if( ret.n8 != '' && ret.n8 != '0' ){
@@ -252,6 +266,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n8+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n8" id="n8"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n8" id="n8" value="0">';
                     }
 
                     if( ret.n9 != '' && ret.n9 != '0' ){
@@ -259,6 +275,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n9+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n9" id="n9"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n9" id="n9" value="0">';
                     }
 
                     if( ret.n10 != '' && ret.n10 != '0' ){
@@ -266,6 +284,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n10+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n10" id="n10"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n10" id="n10" value="0">';
                     }
 
                     if( ret.n11 != '' && ret.n11 != '0' ){
@@ -273,6 +293,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n11+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n11" id="n11"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n11" id="n11" value="0">';
                     }
 
                     if( ret.n12 != '' && ret.n12 != '0' ){
@@ -280,6 +302,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n12+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n12" id="n12"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n12" id="n12" value="0">';
                     }
 
                     if( ret.n13 != '' && ret.n13 != '0' ){
@@ -287,6 +311,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n13+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n13" id="n13"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n13" id="n13" value="0">';
                     }
 
                     if( ret.n14 != '' && ret.n14 != '0' ){
@@ -294,6 +320,8 @@
                         strRetorno += '<td width="25%"><b>'+ret.n14+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n14" id="n14"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n14" id="n14" value="0">';
                     }
 
                     if( ret.n15 != '' && ret.n15 != '0' ){
@@ -301,14 +329,14 @@
                         strRetorno += '<td width="25%"><b>'+ret.n15+'</b></td>';
                         strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n15" id="n15"></td>';
                         strRetorno += '</tr>';
+                    }else{
+                        strRetorno += '<td width="75%"><input class="form-control" type="hidden"  name="n15" id="n15" value="0">';
                     }
                 }
             }
 
             strRetorno += '</table>';
             $('#str-grade').html( strRetorno );
-
-
         }
 
         $(function () {
@@ -388,92 +416,111 @@
                 $('#itens-pedido').modal('show');
         }
 
+        var operacao = "A";
+        var indice_selecionado = -1;
+        var tbItemPedido = localStorage.getItem("tbItemPedido");
 
-        /*
-		var operacao = "A";
-		var indice_selecionado = -1;
-		var tbProdutos = localStorage.getItem("tbProdutos");
+        tbItemPedido = JSON.parse( tbItemPedido );
 
-		tbProdutos = JSON.parse( tbProdutos );
+        if(tbItemPedido == null)
+            tbItemPedido = [];
 
-		if(tbProdutos == null)
-			tbProdutos = [];
+		function adicionarItem(){
 
-		console.log( tbProdutos )
+			var item = JSON.stringify({
+                numeroPedido    : $("#numero").val(),
+                produto         : $("#produto").val(),
+                cor             : $("#cor").val(),
+                preco           : $("#precoProduto").val(),
+                n1              : $("#n1").val(),
+                n2              : $("#n2").val(),
+                n3              : $("#n3").val(),
+                n4              : $("#n4").val(),
+                n5              : $("#n5").val(),
+                n6              : $("#n6").val(),
+                n7              : $("#n7").val(),
+                n8              : $("#n8").val(),
+                n9              : $("#n9").val(),
+                n10             : $("#n10").val(),
+                n11             : $("#n11").val(),
+                n12             : $("#n12").val(),
+                n13             : $("#n13").val(),
+                n14             : $("#n14").val(),
+                n15             : $("#n15").val()
+			});
 
-		function gravarNovoProduto(){
+			tbItemPedido.push( item );
 
-            var precoFabrica = $("#preco_fabrica").val().replace(',', '.');
-            var precoVenda   = $("#preco_venda").val().replace(',', '.');
-
-			var produto = JSON.stringify({
-					referencia      : $("#referencia").val(),
-					cod_marca       : $("#marca").val(),
-					cod_grade       : $("#grade").val(),
-					preco_fabrica   : precoFabrica,
-					preco_venda     : precoVenda,
-                    cod_linha       : $("#linha").val()
-				});
-
-			tbProdutos.push( produto );
-
-			localStorage.setItem("tbProdutos", JSON.stringify( tbProdutos ));
-			alert("Produto adicionado com Sucesso");
-			window.location='produtos.html';
-			return true;
+			localStorage.setItem("tbItemPedido", JSON.stringify( tbItemPedido ));
+            atualizaItens();
+			alert("Item adicionado com Sucesso");
+            console.log( tbItemPedido )
+			$('#itens-pedido').modal('hide');
 		}
 
-		function mostraMarcas(){
-
-			var strRetorno = '';
-			var tbMarcas = JSON.parse( localStorage.getItem('tbMarcas') );
-
-            console.log( tbMarcas );
-
-			for(var i in tbMarcas){
-                var ret = JSON.parse( tbMarcas[i] );
-				strRetorno += '<option value="'+ret.cod+'">'+ret.descricao+'</option>';
-			}
-			$('#marca').html( strRetorno );
-
-		}
-
-        mostraMarcas();
-
-        function mostraGrades(){
+        function atualizaItens(){
 
             var strRetorno = '';
-            var tbGrades = JSON.parse( localStorage.getItem('tbGrades') );
+            strRetorno += '<table width="100%" border="0" cellspacing="2" cellpadding="0">';
 
-            console.log( tbGrades );
+            var tbItemPedido = JSON.parse( localStorage.getItem('tbItemPedido') );
 
-            for(var i in tbGrades){
-                var ret = JSON.parse( tbGrades[i] );
-                strRetorno += '<option value="'+ret.cod+'">'+ret.descricao+'</option>';
+            console.log( tbItemPedido );
+
+            for(var i in tbItemPedido){
+                var ret = JSON.parse( tbItemPedido[i] );
+
+                if( ret.numeroPedido == $('#numero').val() ){
+                    strRetorno += '<tr>';
+                    strRetorno += '<td style="font-size:11px" width="92%"><b>'+ret.produto+'</b> / '+nomeCor(ret.cor)+' / '+totalItem(i)+' par(es)</td>';
+                    strRetorno += "<td width='8%'><button style='margin:5px; width:40px; height:30px' class='btn-danger glyphicon glyphicon-remove' onclick='excluirRegistro("+i+")'/></td>";
+                    strRetorno += '</tr>';
+                }
             }
-            $('#grade').html( strRetorno );
 
+            strRetorno += '</table>';
+            $('#itens').html( strRetorno );
         }
 
-        mostraGrades();
-
-        function mostraLinhas(){
-
-            var strRetorno = '';
-            var tbLinhas = JSON.parse( localStorage.getItem('tbLinhas') );
-
-            console.log( tbLinhas );
-
-            for(var i in tbLinhas){
-                var ret = JSON.parse( tbLinhas[i] );
-                strRetorno += '<option value="'+ret.cod+'">'+ret.descricao+'</option>';
-            }
-            $('#linha').html( strRetorno );
-
+        function excluirRegistro( indice_selecionado ){
+            tbItemPedido.splice(indice_selecionado, 1);
+            localStorage.setItem("tbItemPedido", JSON.stringify( tbItemPedido ));
+            atualizaItens();
         }
 
-        mostraLinhas();
-        */
+
+        indice_selecionado = -1;
+        var tbPedidos = localStorage.getItem("tbPedidos");
+
+        tbPedidos = JSON.parse( tbPedidos );
+
+        if(tbPedidos == null)
+            tbPedidos = [];
+
+        function gravarPedido(){
+
+            var data = new Date;
+
+            var pedido = JSON.stringify({
+                numero              : $("#numero").val(),
+                dataCad             : data.getFullYear()+-+data.getMonth()+'-'+data.getDate(),
+                enviado             : 0,
+                cliente             : $("#cliente").val(),
+                condPagto           : $("#condPagto").val(),
+                localCob            : $("#localCob").val(),
+                tipoFrete           : $("#tipoFrete").val(),
+                percentualSolado    : $("#percentualSolado").val(),
+                dataEntrega         : $("#dataEntrega").val(),
+                obs                 : $("#observacoes").val()
+            });
+
+            tbPedidos.push( pedido );
+
+            localStorage.setItem("tbPedidos", JSON.stringify( tbPedidos ));
+            alert("Pedido gravado com Sucesso");
+            console.log( tbItemPedido )
+            window.location = 'pedidos.html';
+        }
     </script>
 
   </div>
