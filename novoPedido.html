@@ -1,0 +1,480 @@
+﻿<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="plugins/datatimepicker/bootstrap-datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="estilo.css">
+
+<script src="jquery.js"></script>
+<script src="plugins/mascara/jquery.mask.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/datatimepicker/moment-with-locales.js"></script>
+<script src="plugins/datatimepicker/bootstrap-datetimepicker.js"></script>
+<script src="funcoes.js"></script>
+
+<nav class="navbar navbar-default navbar-static-side" role="navigation">
+
+    <div class="container-fluid">
+
+        <div class="navbar-header navbar-fixed-top">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Navegação</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <img style="margin-top:3px; margin-left:18px" src="img/logoBranco.png" width="45" height="39" alt=""/>
+    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Novo Pedido</span>
+
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <ul class="nav navbar-nav">
+
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link "><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
+				<li class="landing_link active"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-cog" href="configuracoes.html"> CONFIGURAÇÃO</a></li>
+
+                <li role="separator" class="divider" style="color:#FFFFFF; text-align:center">__________________________________________</li>
+
+                <li class="landing_link"><a href="index.html">Voltar ao Inicio <span class="sr-only">(current)</span></a></li>
+                <li class="landing_link"><a target="_blank" href="http://www.firevendas.com.br">Site Firevendas <span class="sr-only">(current)</span></a></li>
+            	<li class="active"><a href="#">Suporte (37) 3287 0022</a></li>
+
+            </ul>
+        </div>
+	</div>
+</nav>
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+
+    <input onClick="window.location='pedidos.html'" type="button" class="bot-laranja" value="Voltar para Pedidos" style="width:100%">
+	<p style="margin-top:2px">
+
+	<div class="form-group">
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="form-group">
+                    <input onKeyPress="verificaCampo()" class="form-control" name="numero" type="text" required id="numero" placeholder="Numero do Pedido">
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control" name="cliente" id="cliente">
+                    </select>
+
+                    <select class="form-control" name="condPagto" id="condPagto">
+                    </select>
+
+                    <select class="form-control" name="localCob" id="localCob">
+                        <option value="1">DINHEIRO</option>
+                        <option value="2">BOLETO</option>
+                        <option value="3">DEPOSITO</option>
+                        <option value="4">CHEQUE</option>
+                        <option value="5">CARTEIRA</option>
+                        <option value="6">NOTINHA</option>
+                    </select>
+
+                    <select class="form-control" name="tipoFrete" id="tipoFrete">
+                        <option value="1">CIF</option>
+                        <option value="2">FOB</option>
+                    </select>
+
+                    <select class="form-control" name="percentualSolado" id="percentualSolado">
+                        <option value="2">100%</option>
+                        <option value="1">60%</option>
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" name="dataEntrega" type="text" required id="dataEntrega" placeholder="Data de Entrega">
+                </div>
+
+                <div class="form-group">
+                    <textarea class="form-control" name="observacoes" type="text" required id="observacoes" placeholder="Observações"></textarea>
+                </div>
+
+                <div class="linha"></div>
+
+                <div id="itens"></div>
+
+                <input id="bot-gravar" onClick="addItem()" type="button" class="bot-azul" value="Novo Item de Pedido" style="width:100%">
+
+                <div class="linha"></div>
+
+                <div class="form-group">
+                    <input onClick="window.location='pedidos.html'" type="button" class="bot-vermelho" value="Cancelar" style="width:140px; float:left">
+                    <input onClick="gravarPedido()" type="button" class="bot-laranja" value="Gravar Pedido" style="width:160px; float:right">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="itens-pedido" class="modal fade">
+        <div class="panel panel-default">
+
+            <div class="panel-heading" style="height:50px">
+                <div style="float:left"><b>Novo Item do Pedido</b></div>
+                <button style="float:right" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+
+            <div class="panel-body">
+                <div class="form-group">
+
+                    <h5>Produto</h5>
+                    <select onChange="mudaProduto(this.value)" class="form-control" name="produto" id="produto">
+                    </select>
+
+                    <h5>Cor</h5>
+                    <select class="form-control" name="cor" id="cor">
+                    </select>
+
+                    <div class="panel-heading" id="str-grade">
+                        Grade...
+                    </div>
+
+                    <input class="form-control" name="precoProduto" type="text" required id="precoProduto" placeholder="PrecoProduto">
+
+                    <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                        <button class="btn btn-primary">Adicionar Item</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        var refProduto;
+        function mudaProduto( refProduto ){
+
+            var strRetorno = '';
+            var tbTabelaCores = JSON.parse( localStorage.getItem('tbTabelaCores') );
+
+            //Preenche Tabela de Cores
+            for(var i in tbTabelaCores){
+                var ret = JSON.parse( tbTabelaCores[i] );
+                if( ret.produto == refProduto )
+                    strRetorno += '<option value="'+ret.cod+'">'+ret.descricao+'</option>';
+            }
+
+            $('#cor').html( strRetorno );
+
+            //Retorna Preço
+            var strRetorno = '';
+            var tbProdutos = JSON.parse( localStorage.getItem('tbProdutos') );
+
+            //Preenche Tabela de Cores
+            for(var i in tbProdutos){
+                var ret = JSON.parse( tbProdutos[i] );
+                if( ret.referencia == refProduto ){
+                   $('#precoProduto').val( ret.preco_fabrica );
+                   var codGrade = ret.cod_grade;
+                }
+            }
+
+            //Monta tabela de Grades
+            var strRetorno = '';
+            var tbGrades = JSON.parse( localStorage.getItem('tbGrades') );
+
+            strRetorno += '<table width="100%" border="0" cellspacing="2" cellpadding="0">';
+
+            for(var i in tbGrades){
+
+                var ret = JSON.parse( tbGrades[i] );
+
+                if( ret.cod == codGrade ){
+
+                    if( ret.n1 != '' && ret.n1 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n1+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n1" id="n1"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n2 != '' && ret.n2 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n2+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n2" id="n2"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n3 != '' && ret.n3 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n3+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n3" id="n3"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n4 != '' && ret.n4 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n4+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n4" id="n4"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n5 != '' && ret.n5 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n5+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n5" id="n5"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n6 != '' && ret.n6 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n6+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n6" id="n6"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n7 != '' && ret.n7 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n7+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n7" id="n7"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n8 != '' && ret.n8 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n8+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n8" id="n8"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n9 != '' && ret.n9 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n9+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n9" id="n9"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n10 != '' && ret.n10 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n10+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n10" id="n10"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n11 != '' && ret.n11 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n11+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n11" id="n11"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n12 != '' && ret.n12 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n12+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n12" id="n12"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n13 != '' && ret.n13 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n13+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n13" id="n13"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n14 != '' && ret.n14 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n14+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n14" id="n14"></td>';
+                        strRetorno += '</tr>';
+                    }
+
+                    if( ret.n15 != '' && ret.n15 != '0' ){
+                        strRetorno += '<tr>';
+                        strRetorno += '<td width="25%"><b>'+ret.n15+'</b></td>';
+                        strRetorno += '<td width="75%"><input class="form-control" type="number"  name="n15" id="n15"></td>';
+                        strRetorno += '</tr>';
+                    }
+                }
+            }
+
+            strRetorno += '</table>';
+            $('#str-grade').html( strRetorno );
+
+
+        }
+
+        $(function () {
+
+            $('#dataEntrega').datetimepicker({
+                inline: false,
+                sideBySide: false,
+                format: "DD/MM/YYYY"
+            });
+
+            mostraClientes();
+            mostraCondPagto();
+            mostraProdutos();
+        });
+
+        function mostraClientes(){
+            var strRetorno = '';
+            var tbClientes = JSON.parse( localStorage.getItem('tbClientes') );
+            //tbClientes.sort();
+
+            console.log( tbClientes );
+
+            for(var i in tbClientes){
+                var ret = JSON.parse( tbClientes[i] );
+                if( ret.razao_social != '')
+                    strRetorno += '<option value="'+ret.cnpj+'">'+ret.razao_social+'</option>';
+            }
+            $('#cliente').html( strRetorno );
+        }
+
+        function mostraProdutos(){
+            var strRetorno = '';
+            var tbProdutos = JSON.parse( localStorage.getItem('tbProdutos') );
+            //tbClientes.sort();
+
+            console.log( tbProdutos );
+            strRetorno = '<option value=""></option>';
+
+            for(var i in tbProdutos){
+                var ret = JSON.parse( tbProdutos[i] );
+                if( ret.referencia != '')
+                    strRetorno += '<option value="'+ret.referencia+'">'+ret.referencia+'</option>';
+            }
+            $('#produto').html( strRetorno );
+        }
+
+        function mostraCondPagto(){
+            var strRetorno = '';
+            var tbCondicoesPagto = JSON.parse( localStorage.getItem('tbCondicoesPagto') );
+            //tbCondicoesPagto.sort();
+
+            console.log( tbCondicoesPagto );
+
+            for(var i in tbCondicoesPagto){
+                var ret = JSON.parse( tbCondicoesPagto[i] );
+                if( ret.descricao != '')
+                    strRetorno += '<option value="'+ret.cod+'">'+ret.descricao+'</option>';
+            }
+            $('#condPagto').html( strRetorno );
+        }
+
+        var bloqueio = true;
+
+        function verificaCampo(){
+
+            if( $('#numero').val() == '' ){
+                bloqueio = true;
+            }else{
+                bloqueio = false;
+            }
+        }
+
+        function addItem(){
+            if( bloqueio == true )
+                alert('É necessário inserir um numero de Pedido');
+            else
+                $('#itens-pedido').modal('show');
+        }
+
+
+        /*
+		var operacao = "A";
+		var indice_selecionado = -1;
+		var tbProdutos = localStorage.getItem("tbProdutos");
+
+		tbProdutos = JSON.parse( tbProdutos );
+
+		if(tbProdutos == null)
+			tbProdutos = [];
+
+		console.log( tbProdutos )
+
+		function gravarNovoProduto(){
+
+            var precoFabrica = $("#preco_fabrica").val().replace(',', '.');
+            var precoVenda   = $("#preco_venda").val().replace(',', '.');
+
+			var produto = JSON.stringify({
+					referencia      : $("#referencia").val(),
+					cod_marca       : $("#marca").val(),
+					cod_grade       : $("#grade").val(),
+					preco_fabrica   : precoFabrica,
+					preco_venda     : precoVenda,
+                    cod_linha       : $("#linha").val()
+				});
+
+			tbProdutos.push( produto );
+
+			localStorage.setItem("tbProdutos", JSON.stringify( tbProdutos ));
+			alert("Produto adicionado com Sucesso");
+			window.location='produtos.html';
+			return true;
+		}
+
+		function mostraMarcas(){
+
+			var strRetorno = '';
+			var tbMarcas = JSON.parse( localStorage.getItem('tbMarcas') );
+
+            console.log( tbMarcas );
+
+			for(var i in tbMarcas){
+                var ret = JSON.parse( tbMarcas[i] );
+				strRetorno += '<option value="'+ret.cod+'">'+ret.descricao+'</option>';
+			}
+			$('#marca').html( strRetorno );
+
+		}
+
+        mostraMarcas();
+
+        function mostraGrades(){
+
+            var strRetorno = '';
+            var tbGrades = JSON.parse( localStorage.getItem('tbGrades') );
+
+            console.log( tbGrades );
+
+            for(var i in tbGrades){
+                var ret = JSON.parse( tbGrades[i] );
+                strRetorno += '<option value="'+ret.cod+'">'+ret.descricao+'</option>';
+            }
+            $('#grade').html( strRetorno );
+
+        }
+
+        mostraGrades();
+
+        function mostraLinhas(){
+
+            var strRetorno = '';
+            var tbLinhas = JSON.parse( localStorage.getItem('tbLinhas') );
+
+            console.log( tbLinhas );
+
+            for(var i in tbLinhas){
+                var ret = JSON.parse( tbLinhas[i] );
+                strRetorno += '<option value="'+ret.cod+'">'+ret.descricao+'</option>';
+            }
+            $('#linha').html( strRetorno );
+
+        }
+
+        mostraLinhas();
+        */
+    </script>
+
+  </div>
+</div>

@@ -1,0 +1,185 @@
+﻿<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="plugins/datatimepicker/bootstrap-datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="estilo.css">
+
+<script src="jquery.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/datatimepicker/moment-with-locales.js"></script>
+<script src="plugins/datatimepicker/bootstrap-datetimepicker.js"></script>
+<script src="funcoes.js"></script>
+
+<nav class="navbar navbar-default navbar-static-side" role="navigation">
+
+    <div class="container-fluid">
+
+        <div class="navbar-header navbar-fixed-top">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Navegação</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <img style="margin-top:3px; margin-left:18px" src="img/logoBranco.png" width="45" height="39" alt=""/>
+    		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Pedidos</span>
+
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <ul class="nav navbar-nav">
+
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link"><a href="#"></a></li>
+                <li class="landing_link "><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
+				<li class="landing_link active"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-cog" href="configuracoes.html"> CONFIGURAÇÃO</a></li>
+
+                <li role="separator" class="divider" style="color:#FFFFFF; text-align:center">__________________________________________</li>
+
+                <li class="landing_link"><a href="index.html">Voltar ao Inicio <span class="sr-only">(current)</span></a></li>
+                <li class="landing_link"><a target="_blank" href="http://www.firevendas.com.br">Site Firevendas <span class="sr-only">(current)</span></a></li>
+            	<li class="active"><a href="#">Suporte (37) 3287 0022</a></li>
+
+            </ul>
+        </div>
+	</div>
+</nav>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+
+		<input onClick="window.location='novoPedido.html'" type="button" class="bot-laranja" value="Novo Pedido" style="width:100%">
+		<p style="margin-top:2px">
+
+		<div class="form-group">
+            <input style="width:85%; float:left" class="form-control" name="strBusca" type="text" required id="strBusca" placeholder="O que você proucura?">
+            <img style="width:10%; float:rigth" src='img/icon_pesquisa.png' alt='Pesquisar' class='btnPesquisar' onclick='pesquisar()'/>
+    	</div>
+
+    	<div id="tbProdutos"></div>
+
+    	<script type="text/javascript">
+
+			$(function () {
+				Listar();
+        	});
+
+			var operacao = "A";
+			var indice_selecionado = -1;
+			var tbProdutos = localStorage.getItem("tbProdutos");
+
+			tbProdutos = JSON.parse( tbProdutos );
+
+			if(tbProdutos == null)
+				tbProdutos = [];
+
+			console.log( tbProdutos )
+
+			function Listar(){
+
+				$("#tbProdutos").html("");
+
+				var strHtml = '<div class="list-group">';
+				strHtml += '<a href="#" class="list-group-item active">';
+				strHtml += '<h5 class="list-group-item-heading">Referência / Marca / Grade / Preço Venda</h5>';
+				strHtml += "</a>";
+
+				for(var i in tbProdutos){
+
+					var comp = JSON.parse( tbProdutos[i] );
+
+					//if( localStorage.getItem('fv.data_selecionada') == comp.data ){
+						var nome_marca = nomeMarca( comp.cod_marca );
+						var nome_grade = nomeGrade( comp.cod_grade );
+
+						strHtml += '<a href="#" class="list-group-item">';
+							strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-danger glyphicon glyphicon-remove' onclick='excluirRegistro("+i+")'/>";
+							strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-success glyphicon glyphicon-edit' onclick='abrirEdicao("+i+")'/>";
+							strHtml += "<button style='margin:5px; height:30px' class='btn-success' onclick='tabelaCores("+'"'+comp.referencia+'"'+")'>Tabela de Cores</button>";
+
+							strHtml += '<p class="list-group-item-text">';
+								strHtml += "<br><b>"+comp.referencia+"</b>";
+								strHtml += '<br>'+nome_marca;
+								strHtml += '<br>'+nome_grade;
+								strHtml += '<br>R$ '+comp.preco_venda;
+								strHtml += "</p>";
+						strHtml += "</a>";
+					//}
+				}
+
+				strHtml += "</div>";
+				$("#tbProdutos").html( strHtml );
+			}
+
+			function pesquisar(){
+
+				$("#tbProdutos").html("");
+
+				var strHtml = '<div class="list-group">';
+				strHtml += '<a href="#" class="list-group-item active">';
+				strHtml += '<h5 class="list-group-item-heading">Referência / Marca / Grade / Preço Venda</h5>';
+				strHtml += "</a>";
+
+				for(var i in tbProdutos){
+
+					var comp = JSON.parse( tbProdutos[i] );
+
+					var tempBusca = comp.referencia.toLowerCase();
+					var partes = tempBusca.split( ( $('#strBusca').val().toLowerCase() ) );
+
+					console.log(tempBusca);
+					console.log($('#strBusca').val());
+					console.log(partes[1]);
+
+					if( partes[1] != undefined ){
+
+						var nome_marca = nomeMarca( comp.cod_marca );
+						var nome_grade = nomeGrade( comp.cod_grade );
+
+						strHtml += '<a href="#" class="list-group-item">';
+							strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-danger glyphicon glyphicon-remove' onclick='excluirRegistro("+i+")'/>";
+							strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-success glyphicon glyphicon-edit' onclick='abrirEdicao("+i+")'/>";
+							strHtml += "<button style='margin:5px; height:30px' class='btn-success' onclick='tabelaCores("+'"'+comp.referencia+'"'+")'>Tabela de Cores</button>";
+
+							strHtml += '<p class="list-group-item-text">';
+								strHtml += "<br><b>"+comp.referencia+"</b>";
+								strHtml += '<br>'+nome_marca;
+								strHtml += '<br>'+nome_grade;
+								strHtml += '<br>R$ '+comp.preco_venda;
+							strHtml += "</p>";
+						strHtml += "</a>";
+					}
+				}
+
+				strHtml += "</div>";
+				$("#tbProdutos").html( strHtml );
+			}
+
+
+			function abrirEdicao( indice_selecionado ){
+				localStorage.setItem('indice_selecionado', indice_selecionado);
+				window.location = 'editarProduto.html';
+			}
+
+			function tabelaCores( indice_selecionado2 ){
+				localStorage.setItem('indice_selecionado2', indice_selecionado2);
+				window.location = 'tabelaCores.html';
+			}
+
+			function excluirRegistro( indice_selecionado ){
+				tbProdutos.splice(indice_selecionado, 1);
+				localStorage.setItem("tbProdutos", JSON.stringify( tbProdutos ));
+				alert("Registro excluído.");
+				Listar();
+			}
+
+    </script>
+
+	</div>
+</div>

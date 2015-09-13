@@ -71,15 +71,15 @@
           });
 
           function gravarDadosAcesso(){
-            localStorage.setItem('fv.email_dados_acesso', localStorage.getItem('fv.email_dados_acesso'));
-            localStorage.setItem('fv.senha_dados_acesso', localStorage.getItem('fv.senha_dados_acesso'));
+            localStorage.setItem('fv.email_dados_acesso', localStorage.getItem('fv.email_firevendas'));
+            localStorage.setItem('fv.senha_dados_acesso', localStorage.getItem('fv.senha_firevendas'));
             $('#tela-dados-acesso').hide();
             $('#tela-dados-acesso2').show();
           }
 
           function apagarDadosAcesso(){
-            localStorage.setItem('fv.email_dados_acesso', ' ');
-            localStorage.setItem('fv.senha_dados_acesso', ' ');
+            localStorage.setItem('fv.email_dados_acesso', '');
+            localStorage.setItem('fv.senha_dados_acesso', '');
             $('#tela-dados-acesso2').hide();
             $('#tela-dados-acesso').show();
           }
