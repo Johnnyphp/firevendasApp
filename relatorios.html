@@ -21,7 +21,7 @@
             </button>
 
             <img style="margin-top:3px; margin-left:18px" src="img/logoBranco.png" width="45" height="39" alt=""/>
-        <span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Configurações</span>
+            <span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Relatórios</span>
 
         </div>
 
@@ -37,8 +37,8 @@
                 <li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
                 <li class="landing_link"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
                 <li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
-                <li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
-                <li class="landing_link active"><a class="glyphicon glyphicon-cog" href="configuracoes.html"> CONFIGURAÇÃO</a></li>
+                <li class="landing_link active"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
+                <li class="landing_link"><a class="glyphicon glyphicon-cog" href="configuracoes.html"> CONFIGURAÇÃO</a></li>
 
                 <li role="separator" class="divider" style="color:#FFFFFF; text-align:center">__________________________________________</li>
 
@@ -54,49 +54,14 @@
 <div class="panel panel-default">
   <div class="panel-body">
 
-      <div style="width:100%" class="btn btn-success">
-        <a style="color:white; text-decoration:none" target="_blank" href="http://www.firevendas.com.br/app/firevendas.apk">Ultima Atualização</a></div>
       <div class='linha'></div>
-      <button style="display:none; width:100%" id="tela-dados-acesso" type="button" class="btn btn-success" onClick="gravarDadosAcesso()">Gravar Dados de Acesso</button>
-      <button style="display:none; width:100%" id="tela-dados-acesso2" type="button" class="btn btn-danger" onClick="apagarDadosAcesso()">Apagar Dados de Acesso</button>
+      <button style="width:100%" type="button" class="bot-azul" onClick="window.location='#'">Vendas por Período</button>
+
       <div class='linha'></div>
-      <button style="width:100%" type="button" class="btn btn-sucess" onClick="editarConta()">Configurações da Conta</button>
+      <button style="width:100%" type="button" class="bot-azul" onClick="window.location='#'">Ranking de Vendas por Produto</button>
+
       <div class='linha'></div>
-      <button style="width:100%" type="button" class="btn btn-danger" onClick="limparConta()">Limpar Minha Conta</button>
+      <button style="width:100%" type="button" class="bot-azul" onClick="window.location='#'">Ranking de Clientes</button>
 
-        <script>
-          $(function () {
-
-            if( localStorage.getItem('fv.email_dados_acesso') == '' || localStorage.getItem('fv.email_dados_acesso') == ' ' )
-              $('#tela-dados-acesso').show();
-            else
-              $('#tela-dados-acesso2').show();
-          });
-
-          function gravarDadosAcesso(){
-            localStorage.setItem('fv.email_dados_acesso', localStorage.getItem('fv.email_firevendas'));
-            localStorage.setItem('fv.senha_dados_acesso', localStorage.getItem('fv.senha_firevendas'));
-            $('#tela-dados-acesso').hide();
-            $('#tela-dados-acesso2').show();
-          }
-
-          function apagarDadosAcesso(){
-            localStorage.setItem('fv.email_dados_acesso', '');
-            localStorage.setItem('fv.senha_dados_acesso', '');
-            $('#tela-dados-acesso2').hide();
-            $('#tela-dados-acesso').show();
-          }
-
-          function editarConta(){
-            window.location = 'editarConta.html';
-          }
-
-          function limparConta(){
-            if( confirm('Deseja realmente limpar sua Conta?') ){
-              window.location = 'limpar.html';
-            }
-          }
-
-        </script>
   </div>
 </div>
