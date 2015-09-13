@@ -34,8 +34,8 @@
                 <li class="landing_link"><a href="#"></a></li>
                 <li class="landing_link "><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
-				<li class="landing_link active"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
-				<li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
+				<li class="landing_link active"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
@@ -119,33 +119,44 @@
 
 		function gravarNovaGrade(){
 
-			var grade = JSON.stringify({
-					cod            : $("#cod").val(),
-					descricao      : $("#descricao").val(),
-					n1             : $("#n1").val(),
-                    n2             : $("#n2").val(),
-                    n3             : $("#n3").val(),
-                    n4             : $("#n4").val(),
-                    n5             : $("#n5").val(),
-                    n6             : $("#n6").val(),
-                    n7             : $("#n7").val(),
-                    n8             : $("#n8").val(),
-                    n9             : $("#n9").val(),
-                    n10            : $("#n10").val(),
-                    n11            : $("#n11").val(),
-                    n12            : $("#n12").val(),
-                    n13            : $("#n13").val(),
-                    n14            : $("#n14").val(),
-                    n15            : $("#n15").val()
-				});
+            if( $("#cod").val() == '' ){
+                alert('O Campo "Código Grade" deve ser preenchido');
+                $('#cod').focus();
+            }else if( $("#descricao").val() == '' ){
+                alert('O Campo "Descrição" deve ser preenchido');
+                $('#descricao').focus();
+            }else if( $("#n1").val() == '' ){
+                alert('O Campo "N1" deve ser preenchido');
+                $('#n1').focus();
+            }else{
+    			var grade = JSON.stringify({
+    					cod            : $("#cod").val(),
+    					descricao      : $("#descricao").val(),
+    					n1             : $("#n1").val(),
+                        n2             : $("#n2").val(),
+                        n3             : $("#n3").val(),
+                        n4             : $("#n4").val(),
+                        n5             : $("#n5").val(),
+                        n6             : $("#n6").val(),
+                        n7             : $("#n7").val(),
+                        n8             : $("#n8").val(),
+                        n9             : $("#n9").val(),
+                        n10            : $("#n10").val(),
+                        n11            : $("#n11").val(),
+                        n12            : $("#n12").val(),
+                        n13            : $("#n13").val(),
+                        n14            : $("#n14").val(),
+                        n15            : $("#n15").val()
+    				});
 
-			tbGrades.push( grade );
+    			tbGrades.push( grade );
 
-			localStorage.setItem("tbGrades", JSON.stringify( tbGrades ));
-            console.log( tbGrades );
-			alert("Grade adicionado com Sucesso");
-			window.location='produtos.html';
-			return true;
+    			localStorage.setItem("tbGrades", JSON.stringify( tbGrades ));
+                console.log( tbGrades );
+    			alert("Grade adicionado com Sucesso");
+    			window.location='produtos.html';
+    			return true;
+            }
 		}
 
     </script>

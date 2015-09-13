@@ -34,8 +34,8 @@
                 <li class="landing_link"><a href="#"></a></li>
                 <li class="landing_link "><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
-				<li class="landing_link active"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
-				<li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
+				<li class="landing_link active"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
@@ -116,24 +116,45 @@
 
 		function gravarNovoProduto(){
 
-            var precoFabrica = $("#preco_fabrica").val().replace(',', '.');
-            var precoVenda   = $("#preco_venda").val().replace(',', '.');
+            if( $("#referencia").val() == '' ){
+                alert('O Campo "Referencia" deve ser preenchido');
+                $('#referencia').focus();
+            }else if( $("#marca").val() == '' ){
+                alert('O Campo "Marca" deve ser preenchido');
+                $('#marca').fous();
+            }else if( $("#grade").val() == '' ){
+                alert('O Campo "Grade" deve ser preenchido');
+                $('#grade').focus();
+            }else if( $("#preco_fabrica").val() == '' ){
+                alert('O Campo "Preço Fabrica" deve ser preenchido');
+                $('#preco_fabrica').focus();
+            }else if( $("#preco_venda").val() == '' ){
+                alert('O Campo "Preço Venda" deve ser preenchido');
+                $('#preco_venda').focus();
+            }else if( $("#linha").val() == '' ){
+                alert('O Campo "Linha" deve ser preenchido');
+                $("#linha").focus();
+            }else{
 
-			var produto = JSON.stringify({
-					referencia      : $("#referencia").val(),
-					cod_marca       : $("#marca").val(),
-					cod_grade       : $("#grade").val(),
-					preco_fabrica   : precoFabrica,
-					preco_venda     : precoVenda,
-                    cod_linha       : $("#linha").val()
-				});
+                var precoFabrica = $("#preco_fabrica").val().replace(',', '.');
+                var precoVenda   = $("#preco_venda").val().replace(',', '.');
 
-			tbProdutos.push( produto );
+    			var produto = JSON.stringify({
+    					referencia      : $("#referencia").val(),
+    					cod_marca       : $("#marca").val(),
+    					cod_grade       : $("#grade").val(),
+    					preco_fabrica   : precoFabrica,
+    					preco_venda     : precoVenda,
+                        cod_linha       : $("#linha").val()
+    				});
 
-			localStorage.setItem("tbProdutos", JSON.stringify( tbProdutos ));
-			alert("Produto adicionado com Sucesso");
-			window.location='produtos.html';
-			return true;
+    			tbProdutos.push( produto );
+
+    			localStorage.setItem("tbProdutos", JSON.stringify( tbProdutos ));
+    			alert("Produto adicionado com Sucesso");
+    			window.location='produtos.html';
+    			return true;
+            }
 		}
 
 		function mostraMarcas(){

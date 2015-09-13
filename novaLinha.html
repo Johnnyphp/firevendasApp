@@ -25,28 +25,28 @@
     		<span style="margin:20px; font-weight:bold; font-size:16px; color:#FFFFFF">Nova Linha</span>
             
         </div>
-    
+
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            
+
             <ul class="nav navbar-nav">
-    			
+
                 <li class="landing_link"><a href="#"></a></li>
                 <li class="landing_link"><a href="#"></a></li>
                 <li class="landing_link "><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
-				<li class="landing_link active"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
-				<li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
+				<li class="landing_link active"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-cog" href="configuracoes.html"> CONFIGURAÇÃO</a></li>
 
                 <li role="separator" class="divider" style="color:#FFFFFF; text-align:center">__________________________________________</li>
-                
+
                 <li class="landing_link"><a href="index.html">Voltar ao Inicio <span class="sr-only">(current)</span></a></li>
                 <li class="landing_link"><a target="_blank" href="http://www.firevendas.com.br">Site Firevendas <span class="sr-only">(current)</span></a></li>
             	<li class="active"><a href="#">Suporte (37) 3287 0022</a></li>
-                
+
             </ul>
         </div>
 	</div>
@@ -100,19 +100,28 @@
 
 		function gravarNovaLinha(){
 
-			var linha = JSON.stringify({
-					cod            : $("#cod").val(),
-					descricao      : $("#descricao").val()
-				});
+            if( $("#cod").val() == '' ){
+                alert('O Campo "Código Grade" deve ser preenchido');
+                $('#cod').focus();
+            }else if( $("#descricao").val() == '' ){
+                alert('O Campo "Descrição" deve ser preenchido');
+                $('#descricao').focus();
+            }else{
 
-			tbLinhas.push( linha );
+    			var linha = JSON.stringify({
+    					cod            : $("#cod").val(),
+    					descricao      : $("#descricao").val()
+    				});
 
-			localStorage.setItem("tbLinhas", JSON.stringify( tbLinhas ));
-            console.log( tbLinhas );
-			alert("Linha adicionada com Sucesso");
-			window.location='produtos.html';
-			return true;
-		}
+    			tbLinhas.push( linha );
+
+    			localStorage.setItem("tbLinhas", JSON.stringify( tbLinhas ));
+                console.log( tbLinhas );
+    			alert("Linha adicionada com Sucesso");
+    			window.location='produtos.html';
+    			return true;
+            }
+        }
 
     </script>
 

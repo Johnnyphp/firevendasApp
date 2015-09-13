@@ -1,4 +1,9 @@
 ﻿<script>
-localStorage.clear();
-window.location = 'index.html';
+
+if( confirm('Deseja realmente limpar os dados de sua Conta?') ){
+	localStorage.clear();
+	window.location = 'index.html';
+}else{
+	window.location = 'painel.html';
+}
 </script>

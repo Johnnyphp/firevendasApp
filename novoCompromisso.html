@@ -3,6 +3,7 @@
 <link rel="stylesheet" type="text/css" href="estilo.css">
 
 <script src="jquery.js"></script>
+<script src="plugins/mascara/jquery.mask.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="plugins/datatimepicker/moment-with-locales.js"></script>
 <script src="plugins/datatimepicker/bootstrap-datetimepicker.js"></script>
@@ -107,6 +108,7 @@
 				format: "DD/MM/YYYY"
             });
 
+            $('#hora').mask('99:99');
             mostraClientes();
 
         });
@@ -127,20 +129,26 @@
 
 		function gravarNovoCompromisso(){
 
-			var compromisso = JSON.stringify({
-					titulo : $("#titulo").val(),
-					data : $("#data").val(),
-					hora : $("#hora").val(),
-					cliente : $("#cliente").val(),
-					descricao : $("#descricao").val()
+            if( $("#titulo").val() == '' ){
+                alert('O Campo "Titulo" deve ser preenchido');
+                $('#titulo').focus();
+            }else{
+
+                var compromisso = JSON.stringify({
+                    titulo : $("#titulo").val(),
+                    data : $("#data").val(),
+                    hora : $("#hora").val(),
+                    cliente : $("#cliente").val(),
+                    descricao : $("#descricao").val()
 				});
 
-			tbCompromissos.push( compromisso );
+                tbCompromissos.push( compromisso );
 
-			localStorage.setItem("tbCompromissos", JSON.stringify( tbCompromissos ));
-			alert("Compromisso adicionado com Sucesso");
-			window.location='verDia.html';
-			return true;
+                localStorage.setItem("tbCompromissos", JSON.stringify( tbCompromissos ));
+                alert("Compromisso adicionado com Sucesso");
+                window.location='verDia.html';
+                return true;
+            }
 		}
 
         function mostraClientes(){

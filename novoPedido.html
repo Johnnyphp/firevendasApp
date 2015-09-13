@@ -96,7 +96,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input class="form-control" name="dataEntrega" type="text" required id="dataEntrega" placeholder="Data de Entrega">
+                    <input class="form-control" name="dataEntrega" type="date" required id="dataEntrega" placeholder="Data de Entrega">
                 </div>
 
                 <div class="form-group">
@@ -341,11 +341,11 @@
 
         $(function () {
 
-            $('#dataEntrega').datetimepicker({
+            /*$('#dataEntrega').datetimepicker({
                 inline: false,
                 sideBySide: false,
                 format: "DD/MM/YYYY"
-            });
+            });*/
 
             mostraClientes();
             mostraCondPagto();
@@ -427,35 +427,57 @@
 
 		function adicionarItem(){
 
-			var item = JSON.stringify({
-                numeroPedido    : $("#numero").val(),
-                produto         : $("#produto").val(),
-                cor             : $("#cor").val(),
-                preco           : $("#precoProduto").val(),
-                n1              : $("#n1").val(),
-                n2              : $("#n2").val(),
-                n3              : $("#n3").val(),
-                n4              : $("#n4").val(),
-                n5              : $("#n5").val(),
-                n6              : $("#n6").val(),
-                n7              : $("#n7").val(),
-                n8              : $("#n8").val(),
-                n9              : $("#n9").val(),
-                n10             : $("#n10").val(),
-                n11             : $("#n11").val(),
-                n12             : $("#n12").val(),
-                n13             : $("#n13").val(),
-                n14             : $("#n14").val(),
-                n15             : $("#n15").val()
-			});
+            if( $("#numero").val() == '' ){
+                alert('O Campo "Numero" deve ser preenchido');
+                $('#numero').focus();
+            }else if( $("#produto").val() == '' ){
+                alert('O Campo "Produto" deve ser preenchido');
+                $('#produto').fous();
+            }else if( $("#cor").val() == '' ){
+                alert('O Campo "Cor" deve ser preenchido');
+                $('#cor').fous();
+            }else if( $("#precoProduto").val() == '' ){
+                alert('O Campo "Preço Produto" deve ser preenchido');
+                $('#precoProduto').fous();
+            }else if( $("#n1").val() == '' ){
+                alert('O Campo "N1" deve ser preenchido');
+                $('#n1').fous();
+            }else{
 
-			tbItemPedido.push( item );
 
-			localStorage.setItem("tbItemPedido", JSON.stringify( tbItemPedido ));
-            atualizaItens();
-			alert("Item adicionado com Sucesso");
-            console.log( tbItemPedido )
-			$('#itens-pedido').modal('hide');
+                var precoProduto = $("#precoProduto").val().replace(',', '.');
+                precoProduto = parseFloat(precoProduto);
+
+    			var item = JSON.stringify({
+                    numeroPedido    : $("#numero").val(),
+                    produto         : $("#produto").val(),
+                    cor             : $("#cor").val(),
+                    preco           : precoProduto,
+                    n1              : $("#n1").val(),
+                    n2              : $("#n2").val(),
+                    n3              : $("#n3").val(),
+                    n4              : $("#n4").val(),
+                    n5              : $("#n5").val(),
+                    n6              : $("#n6").val(),
+                    n7              : $("#n7").val(),
+                    n8              : $("#n8").val(),
+                    n9              : $("#n9").val(),
+                    n10             : $("#n10").val(),
+                    n11             : $("#n11").val(),
+                    n12             : $("#n12").val(),
+                    n13             : $("#n13").val(),
+                    n14             : $("#n14").val(),
+                    n15             : $("#n15").val()
+    			});
+
+    			tbItemPedido.push( item );
+
+    			localStorage.setItem("tbItemPedido", JSON.stringify( tbItemPedido ));
+                atualizaItens();
+    			alert("Item adicionado com Sucesso");
+                console.log( tbItemPedido )
+    			$('#itens-pedido').modal('hide');
+            }
 		}
 
         function atualizaItens(){
@@ -499,27 +521,51 @@
 
         function gravarPedido(){
 
-            var data = new Date;
+            if( $("#numero").val() == '' ){
+                alert('O Campo "Numero" deve ser preenchido');
+                $('#numero').focus();
+            }else if( $("#cliente").val() == '' ){
+                alert('O Campo "Cliente" deve ser preenchido');
+                $('#cliente').fous();
+            }else if( $("#condPagto").val() == '' ){
+                alert('O Campo "Condições de Pagamento" deve ser preenchido');
+                $('#condPagto').focus();
+            }else if( $("#localCob").val() == '' ){
+                alert('O Campo "Local de Cobrança" deve ser preenchido');
+                $('#localCob').focus();
+            }else if( $("#tipoFrete").val() == '' ){
+                alert('O Campo "Tipo Frete" deve ser preenchido');
+                $('#tipoFrete').focus();
+            }else if( $("#percentualSolado").val() == '' ){
+                alert('O Campo "Percentual Solado" deve ser preenchido');
+                $("#percentualSolado").focus();
+            }else if( $("#dataEntrega").val() == '' ){
+                alert('O Campo "Data Entrega" deve ser preenchido');
+                $("#dataEntrega").focus();
+            }else{
 
-            var pedido = JSON.stringify({
-                numero              : $("#numero").val(),
-                dataCad             : data.getFullYear()+-+data.getMonth()+'-'+data.getDate(),
-                enviado             : 0,
-                cliente             : $("#cliente").val(),
-                condPagto           : $("#condPagto").val(),
-                localCob            : $("#localCob").val(),
-                tipoFrete           : $("#tipoFrete").val(),
-                percentualSolado    : $("#percentualSolado").val(),
-                dataEntrega         : $("#dataEntrega").val(),
-                obs                 : $("#observacoes").val()
-            });
+                var data = new Date;
 
-            tbPedidos.push( pedido );
+                var pedido = JSON.stringify({
+                    numero              : $("#numero").val(),
+                    dataCad             : data.getFullYear()+-+data.getMonth()+'-'+data.getDate(),
+                    enviado             : 0,
+                    cliente             : $("#cliente").val(),
+                    condPagto           : $("#condPagto").val(),
+                    localCob            : $("#localCob").val(),
+                    tipoFrete           : $("#tipoFrete").val(),
+                    percentualSolado    : $("#percentualSolado").val(),
+                    dataEntrega         : $("#dataEntrega").val(),
+                    obs                 : $("#observacoes").val()
+                });
 
-            localStorage.setItem("tbPedidos", JSON.stringify( tbPedidos ));
-            alert("Pedido gravado com Sucesso");
-            console.log( tbItemPedido )
-            window.location = 'pedidos.html';
+                tbPedidos.push( pedido );
+
+                localStorage.setItem("tbPedidos", JSON.stringify( tbPedidos ));
+                alert("Pedido gravado com Sucesso");
+                console.log( tbItemPedido )
+                window.location = 'pedidos.html';
+            }
         }
     </script>
 

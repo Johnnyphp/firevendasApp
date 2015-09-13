@@ -34,8 +34,8 @@
                 <li class="landing_link"><a href="#"></a></li>
                 <li class="landing_link "><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
-				<li class="landing_link active"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
-				<li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
+				<li class="landing_link"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
+				<li class="landing_link active"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
 				<li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
@@ -100,18 +100,27 @@
 
 		function gravarNovaMarca(){
 
-			var marca = JSON.stringify({
-					cod            : $("#cod").val(),
-					descricao      : $("#descricao").val()
-				});
+            if( $("#cod").val() == '' ){
+                alert('O Campo "Código Grade" deve ser preenchido');
+                $('#cod').focus();
+            }else if( $("#descricao").val() == '' ){
+                alert('O Campo "Descrição" deve ser preenchido');
+                $('#descricao').focus();
+            }else{
 
-			tbMarcas.push( marca );
+    			var marca = JSON.stringify({
+    					cod            : $("#cod").val(),
+    					descricao      : $("#descricao").val()
+    				});
 
-			localStorage.setItem("tbMarcas", JSON.stringify( tbMarcas ));
-            console.log( tbMarcas );
-			alert("Marca adicionado com Sucesso");
-			window.location='produtos.html';
-			return true;
+    			tbMarcas.push( marca );
+
+    			localStorage.setItem("tbMarcas", JSON.stringify( tbMarcas ));
+                console.log( tbMarcas );
+    			alert("Marca adicionado com Sucesso");
+    			window.location='produtos.html';
+    			return true;
+            }
 		}
 
     </script>

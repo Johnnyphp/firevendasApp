@@ -195,30 +195,51 @@
 
 		function gravarNovoCliente(){
 
-			var cliente = JSON.stringify({
-					razao_social    : $("#razao_social").val(),
-					nome_fantasia   : $("#nome_fantasia").val(),
-					nome_contato    : $("#nome_contato").val(),
-					cnpj            : $("#cnpj").val(),
-					ie              : $("#ie").val(),
-                    telefone_fixo   : $("#telefone_fixo").val(),
-                    telefone_celular: $("#telefone_celular").val(),
-                    email           : $("#email").val(),
-                    endereco        : $("#endereco").val(),
-                    numero          : $("#numero").val(),
-                    bairro          : $("#bairro").val(),
-                    cep             : $("#cep").val(),
-                    estado          : $("#estado").val(),
-                    cidade          : $("#cidade").val(),
-                    obs             : $("#obs").val()
-				});
+            if( $("#razao_social").val() == '' ){
+                alert('O Campo "Razão Social" deve ser preenchido');
+                $('#razao_social').focus();
+            }else if( $("#nome_fantasia").val() == '' ){
+                alert('O Campo "Nome Fantasia" deve ser preenchido');
+                $('#nome_fantasia').focus();
+            }else if( $("#cnpj").val() == '' ){
+                alert('O Campo "CNPJ" deve ser preenchido');
+                $('#cnpj').focus();
+            }else if( $("#ie").val() == '' ){
+                alert('O Campo "IE" deve ser preenchido');
+                $('#ie').focus();
+            }else if( $("#email").val() == '' ){
+                alert('O Campo "Email" deve ser preenchido');
+                $('#email').focus();
+            }else if( $("#endereco").val() == '' ){
+                alert('O Campo "Endereço" deve ser preenchido');
+                $('#endereco').focus();
+            }else{
 
-			tbClientes.push( cliente );
+    			var cliente = JSON.stringify({
+    					razao_social    : $("#razao_social").val(),
+    					nome_fantasia   : $("#nome_fantasia").val(),
+    					nome_contato    : $("#nome_contato").val(),
+    					cnpj            : $("#cnpj").val(),
+    					ie              : $("#ie").val(),
+                        telefone_fixo   : $("#telefone_fixo").val(),
+                        telefone_celular: $("#telefone_celular").val(),
+                        email           : $("#email").val(),
+                        endereco        : $("#endereco").val(),
+                        numero          : $("#numero").val(),
+                        bairro          : $("#bairro").val(),
+                        cep             : $("#cep").val(),
+                        estado          : $("#estado").val(),
+                        cidade          : $("#cidade").val(),
+                        obs             : $("#obs").val()
+    				});
 
-			localStorage.setItem("tbClientes", JSON.stringify( tbClientes ));
-			alert("Cliente adicionado com Sucesso");
-			window.location='clientes.html';
-			return true;
+    			tbClientes.push( cliente );
+
+    			localStorage.setItem("tbClientes", JSON.stringify( tbClientes ));
+    			alert("Cliente adicionado com Sucesso");
+    			window.location='clientes.html';
+    			return true;
+            }
 		}
 
 		var siglaEstado = '';

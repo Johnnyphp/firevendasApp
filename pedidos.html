@@ -100,9 +100,9 @@
 
 						strHtml += '<a href="#" class="list-group-item">';
 
-							if( comp.enviado == '0' ){
+							//if( comp.enviado == '0' ){
 								strHtml += "<button style='margin:5px; width:40px; height:30px' class='btn-danger glyphicon glyphicon-remove' onclick='excluirRegistro("+i+")'/>";
-							}
+							//}
 
 							if( comp.enviado == '0')
 								strEnviado = 'Enviado: Não';
@@ -189,8 +189,8 @@
 			}
 
 			function excluirRegistro( indice_selecionado ){
-				tbProdutos.splice(indice_selecionado, 1);
-				localStorage.setItem("tbProdutos", JSON.stringify( tbProdutos ));
+				tbPedidos.splice(indice_selecionado, 1);
+				localStorage.setItem("tbPedidos", JSON.stringify( tbPedidos ));
 				alert("Registro excluído.");
 				Listar();
 			}

@@ -31,12 +31,12 @@
 
                 <li class="landing_link"><a href="#"></a></li>
                 <li class="landing_link"><a href="#"></a></li>
-                <li class="landing_link active"><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
+                <li class="landing_link"><a class="glyphicon glyphicon-calendar" href="painel.html"> PAINEL</a></li>
                 <li class="landing_link"><a class="glyphicon glyphicon-calendar" href="agenda.html"> AGENDA</a></li>
                 <li class="landing_link"><a class="glyphicon glyphicon-user" href="clientes.html"> CLIENTES</a></li>
                 <li class="landing_link"><a class="glyphicon glyphicon-th-large" href="produtos.html"> PRODUTOS</a></li>
                 <li class="landing_link"><a class="glyphicon glyphicon-tags" href="pedidos.html"> PEDIDOS</a></li>
-                <li class="landing_link"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
+                <li class="landing_link active"><a class="glyphicon glyphicon-refresh" href="sincronizacao.html"> SINCRONIZAÇÃO</a></li>
                 <li class="landing_link"><a class="glyphicon glyphicon-th-list" href="relatorios.html"> RELATÓRIOS</a></li>
                 <li class="landing_link"><a class="glyphicon glyphicon-cog" href="configuracoes.html"> CONFIGURAÇÃO</a></li>
 
@@ -835,6 +835,158 @@ function sincCondicoesPagto(){
     },
       error: function(retorno){
       alert('Um erro inesperado aconteceu durante a Sincronização');
+    }
+  });
+}
+
+function sincPedidos(){
+
+  $('#loading').modal('show');
+
+  //Prepara Tabela de Pedidos
+  var operacao = "A";
+  var indice_selecionado = -1;
+  var tbPedidos = localStorage.getItem("tbPedidos");
+
+  tbPedidos = JSON.parse( tbPedidos );
+
+  if(tbPedidos == null)
+    tbPedidos = [];
+
+  //Prepara Tabela de Itens de Pedidos
+  var operacao = "A";
+  var indice_selecionado = -1;
+  var tbItemPedido = localStorage.getItem("tbItemPedido");
+
+  tbItemPedido = JSON.parse( tbItemPedido );
+
+  if(tbItemPedido == null)
+    tbItemPedido = [];
+
+  console.log( tbPedidos );
+  console.log( tbItemPedido );
+
+  var strEnvia = '';
+
+  for(var i in tbPedidos ){
+
+    var ped = JSON.parse( tbPedidos[i] );
+
+      if( ped.enviado == '0'){
+
+         tbPedidos[i] = JSON.stringify({
+          numero              : ped.numero,
+          dataCad             : ped.dataCad,
+          enviado             : 1,
+          cliente             : ped.cliente,
+          condPagto           : ped.condPagto,
+          localCob            : ped.localCob,
+          tipoFrete           : ped.tipoFrete,
+          percentualSolado    : ped.percentualSolado,
+          dataEntrega         : ped.dataEntrega,
+          obs                 : ped.observacoes
+        });
+
+        localStorage.setItem("tbPedidos", JSON.stringify( tbPedidos ));
+
+        ped_numero            = ped.numero.replace('&', 'E');
+        ped_dataCad           = ped.dataCad.replace('&', 'E');
+        ped_enviado           = ped.enviado; //.replace('&', 'E');
+        ped_cliente           = ped.cliente.replace('&', 'E');
+        ped_condPagto         = ped.condPagto.replace('&', 'E');
+        ped_localCob          = ped.localCob.replace('&', 'E');
+        ped_tipoFrete         = ped.tipoFrete.replace('&', 'E');
+        ped_percentualSolado  = ped.percentualSolado.replace('&', 'E');
+        ped_dataEntrega       = ped.dataEntrega.replace('&', 'E');
+        ped_obs               = ped.obs.replace('&', 'E');
+
+        //Itens de Pedido
+        for(var ii in tbItemPedido ){
+
+          var item = JSON.parse( tbItemPedido[ii] );
+
+          if( item.numeroPedido == ped_numero ){
+
+            item_numeroPedido   = item.numeroPedido.replace('&', 'E');
+            item_produto        = item.produto.replace('&', 'E');
+            item_cor            = item.cor.replace('&', 'E');
+            item_preco          = item.preco.replace('&', 'E');
+            item_n1             = item.n1.replace('&', 'E');
+            item_n2             = item.n2.replace('&', 'E');
+            item_n3             = item.n3.replace('&', 'E');
+            item_n4             = item.n4.replace('&', 'E');
+            item_n5             = item.n5.replace('&', 'E');
+            item_n6             = item.n6.replace('&', 'E');
+            item_n7             = item.n7.replace('&', 'E');
+            item_n8             = item.n8.replace('&', 'E');
+            item_n9             = item.n9.replace('&', 'E');
+            item_n10            = item.n10.replace('&', 'E');
+            item_n11            = item.n11.replace('&', 'E');
+            item_n12            = item.n12.replace('&', 'E');
+            item_n13            = item.n13.replace('&', 'E');
+            item_n14            = item.n14.replace('&', 'E');
+            item_n15            = item.n15.replace('&', 'E');
+
+            strEnvia += '[]';
+            strEnvia += item_numeroPedido+'|';
+            strEnvia += item_produto+'|';
+            strEnvia += item_cor+'|';
+            strEnvia += item_preco+'|';
+            strEnvia += item_n1+'|';
+            strEnvia += item_n2+'|';
+            strEnvia += item_n3+'|';
+            strEnvia += item_n4+'|';
+            strEnvia += item_n5+'|';
+            strEnvia += item_n6+'|';
+            strEnvia += item_n7+'|';
+            strEnvia += item_n8+'|';
+            strEnvia += item_n9+'|';
+            strEnvia += item_n10+'|';
+            strEnvia += item_n11+'|';
+            strEnvia += item_n12+'|';
+            strEnvia += item_n13+'|';
+            strEnvia += item_n14+'|';
+            strEnvia += item_n15+'}';
+
+          }
+        }
+        //Fim Itens do Pedido
+
+        strEnvia += ped_numero+'|';
+        strEnvia += ped_dataCad+'|';
+        strEnvia += ped_enviado+'|';
+        strEnvia += ped_cliente+'|';
+        strEnvia += ped_condPagto+'|';
+        strEnvia += ped_localCob+'|';
+        strEnvia += ped_tipoFrete+'|';
+        strEnvia += ped_percentualSolado+'|';
+        strEnvia += ped_dataEntrega+'|';
+        strEnvia += ped_obs+'|';
+        strEnvia += '§';
+      }
+
+
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "http://www.firevendas.com.br/app/sincPedidos.php",
+    data: "email_firevendas="+localStorage.getItem('fv.email_firevendas')+"&senha_firevendas="+localStorage.getItem('fv.senha_firevendas')+"&empresa_firevendas="+localStorage.getItem('fv.empresa')+"&strEnvia="+strEnvia,
+    success: function(retorno){
+
+      console.log( retorno );
+      
+      if( retorno == 'ERROR'){
+        alert('Erro na Sincronização de Condições de Pagamento, Consulte o suporte técnico.');
+      }else{
+        alert('Pedidos Sincronizados');
+        console.log( tbPedidos );
+        $('#loading').modal('hide');
+      }
+    },
+      error: function(retorno){
+      alert('Um erro inesperado aconteceu durante a Sincronização');
+      $('#loading').modal('hide');
     }
   });
 }
