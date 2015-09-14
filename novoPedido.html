@@ -445,14 +445,14 @@
             }else{
 
 
-                var precoProduto = $("#precoProduto").val().replace(',', '.');
-                precoProduto = parseFloat(precoProduto);
+                //var precoProduto = $("#precoProduto").val().replace(',', '.');
+                //precoProduto = parseFloat(precoProduto);
 
     			var item = JSON.stringify({
                     numeroPedido    : $("#numero").val(),
                     produto         : $("#produto").val(),
                     cor             : $("#cor").val(),
-                    preco           : precoProduto,
+                    preco           : $("#precoProduto").val(),
                     n1              : $("#n1").val(),
                     n2              : $("#n2").val(),
                     n3              : $("#n3").val(),
