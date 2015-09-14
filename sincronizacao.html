@@ -880,7 +880,7 @@ function sincPedidos(){
 
         console.log( 'Numero2:' + ped.numero )
 
-        /*
+
          tbPedidos[i] = JSON.stringify({
           numero              : ped.numero,
           dataCad             : ped.dataCad,
@@ -895,7 +895,7 @@ function sincPedidos(){
         });
 
         localStorage.setItem("tbPedidos", JSON.stringify( tbPedidos ));
-        */
+
         ped_numero            = ped.numero.replace('&', 'E');
         ped_dataCad           = ped.dataCad.replace('&', 'E');
         ped_enviado           = ped.enviado; //.replace('&', 'E');
